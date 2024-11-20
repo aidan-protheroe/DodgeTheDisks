@@ -20,7 +20,7 @@ public partial class Arena : Node2D
 	public PackedScene HeartScene;
 	
 	public float TotalTime = 0f; 
-	public int Difficulty = 1;
+	public int Difficulty = 0;
 	
 	public LoadoutGenerator LG;
 	Random rnd;
@@ -62,13 +62,8 @@ public partial class Arena : Node2D
 		
 		AvailableDisks = new List<DiskData>();
 		
-		//AvailableDisks.Add(DiskDataLoader.Instance.DiskDataDict["SmallRandom"]);
-		//AvailableDisks.Add(DiskDataLoader.Instance.DiskDataDict["RegularRandom"]);
-		//AvailableDisks.Add(DiskDataLoader.Instance.DiskDataDict["BigRandom"]);
-		
-		//test
 		LG = new LoadoutGenerator();
-		AvailableDisks = LG.Generate(1, 3);
+		AvailableDisks = LG.Generate(0, 3);
 	}
 
 	public override void _Process(double delta)

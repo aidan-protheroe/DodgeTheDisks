@@ -31,3 +31,10 @@ public partial class Main : Node
 
 //give the DiskGenerator a point system, where it can spend points(the max depends on difficulty) to give each variable 
 //you can buy equipment in the store outside of the main loop and can equip 3 items at a time? stuff like slower disks, extera health/stamina, faster speed, etc
+//remove offscreen disks
+//add coins
+//add more paths as difficulty increases(maybe just start with 2?)
+
+//equipemt rthat slows down time when dashing
+
+//can purtchaswe extra equipment slots (maybe only in game loop with coins? To make it harder? )
