@@ -44,3 +44,7 @@ public partial class Main : Node
 
 //add max size and max speed to disks, focus more on  adding more disks at a certain point
 //give stamina bar same aesthetic as hearts, white outline white fill
+
+//active itemd can be used with space, like clearing all disks on screen
+
+//do heartGrid size changes when numOfHearts % 3 = 1, add 1 heart height + buffer size to accomeadte
