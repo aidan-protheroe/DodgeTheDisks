@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=3 uid="uid://cibcdmyfobf6i"]
+
+[ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_7yiso"]
+[ext_resource type="Script" path="res://scripts/Arena.cs" id="1_nkdgo"]
+[ext_resource type="PackedScene" uid="uid://fjyv0be307uv" path="res://scenes/Player.tscn" id="2_tp4h1"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_miplu"]
+
+[sub_resource type="Curve2D" id="Curve2D_vi62g"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 219, -109, 0, 0, 0, 0, 1365, -109, 0, 0, 0, 0, 1363, 1013, 0, 0, 0, 0, 220, 1013, 0, 0, 0, 0, 219, -109)
+}
+point_count = 5
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_60fdi"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_fj5sb"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ga6uc"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vt75i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6326d"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_521g1"]
+bg_color = Color(0.377919, 0.377919, 0.377919, 1)
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_nkdgo")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_right = 1603.0
+offset_bottom = 899.0
+texture = SubResource("CanvasTexture_miplu")
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = 1
+scale = Vector2(4, 4)
+tile_set = ExtResource("1_7yiso")
+format = 2
+layer_0/tile_data = PackedInt32Array(851982, 393219, 17, 851983, 393219, 17, 851984, 393219, 17, 851985, 393219, 17, 851986, 393219, 17, 851987, 393219, 17, 851981, 393219, 17, 851980, 393219, 17, 851979, 393219, 17, 851978, 393219, 17, 851977, 393219, 17, 851976, 393219, 17, 851975, 393219, 17, 851974, 393219, 17, 851973, 393219, 17, 19, 393219, 17, 65555, 393219, 17, 131091, 393219, 17, 196627, 393219, 17, 262163, 393219, 17, 327699, 393219, 17, 393235, 393219, 17, 458771, 393219, 17, 655379, 393219, 17, 720915, 393219, 17, 786451, 393219, 17, 524307, 393219, 17, 589843, 393219, 17, 786437, 393219, 17, 720901, 393219, 17, 655365, 393219, 17, 589829, 393219, 17, 524293, 393219, 17, 458757, 393219, 17, 393221, 393219, 17, 327685, 393219, 17, 262149, 393219, 17, 196613, 393219, 17, 131077, 393219, 17, 65541, 393219, 17, 5, 393219, 17, 6, 393219, 17, 7, 393219, 17, 8, 393219, 17, 9, 393219, 17, 10, 393219, 17, 11, 393219, 17, 12, 393219, 17, 13, 393219, 17, 14, 393219, 17, 15, 393219, 17, 16, 393219, 17, 17, 393219, 17, 18, 393219, 17)
+
+[node name="Player" parent="." instance=ExtResource("2_tp4h1")]
+position = Vector2(538, 279)
+scale = Vector2(2, 2)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vi62g")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(219, -109)
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
+position = Vector2(1352.26, -109)
+progress = 1133.25
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
+position = Vector2(1363.22, 1011.76)
+rotation = 1.57258
+progress = 2266.51
+
+[node name="PathFollow2D4" type="PathFollow2D" parent="Path2D"]
+position = Vector2(231.198, 1013)
+rotation = 3.14159
+progress = 3399.76
+
+[node name="DiskTimer" type="Timer" parent="."]
+
+[node name="VisibleBorders" type="Node" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="VisibleBorders"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 318.0
+offset_right = 1279.0
+offset_bottom = 61.0
+texture = SubResource("CanvasTexture_60fdi")
+
+[node name="TextureRect2" type="TextureRect" parent="VisibleBorders"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 1216.0
+offset_top = -2.0
+offset_right = 1600.0
+offset_bottom = 892.0
+texture = SubResource("CanvasTexture_fj5sb")
+
+[node name="TextureRect3" type="TextureRect" parent="VisibleBorders"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 322.0
+offset_top = 830.0
+offset_right = 1278.0
+offset_bottom = 893.0
+texture = SubResource("CanvasTexture_ga6uc")
+
+[node name="TextureRect4" type="TextureRect" parent="VisibleBorders"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -1.0
+offset_right = 385.0
+offset_bottom = 900.0
+texture = SubResource("CanvasTexture_vt75i")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerStaminaBar" type="ProgressBar" parent="UI"]
+offset_left = 296.0
+offset_top = 105.0
+offset_right = 336.0
+offset_bottom = 374.0
+rotation = 1.5708
+theme_override_styles/background = SubResource("StyleBoxFlat_6326d")
+theme_override_styles/fill = SubResource("StyleBoxFlat_521g1")
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TimeLabel" type="Label" parent="UI"]
+offset_left = 1308.0
+offset_top = 33.0
+offset_right = 1574.0
+offset_bottom = 165.0
+theme_override_font_sizes/font_size = 100
+text = "0.00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeartContainer" type="Node" parent="UI"]
+
+[connection signal="timeout" from="DiskTimer" to="." method="OnDiskTimerTimeout"]

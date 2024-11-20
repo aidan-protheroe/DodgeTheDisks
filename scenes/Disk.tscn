@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cel060il48n5m"]
+
+[ext_resource type="Script" path="res://scripts/Disk.cs" id="1_1ehg4"]
+[ext_resource type="Texture2D" uid="uid://dtp4bv0t5gimn" path="res://assets/diskWhite.png" id="2_ytadb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bnljg"]
+radius = 41.0488
+
+[node name="Disk" type="Area2D"]
+script = ExtResource("1_1ehg4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ytadb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bnljg")

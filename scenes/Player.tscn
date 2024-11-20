@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://fjyv0be307uv"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_jhtur"]
+[ext_resource type="SpriteFrames" uid="uid://drpkoqw7e07i1" path="res://assets/Resources/PlayerSpriteFrames.tres" id="2_4fc16"]
+[ext_resource type="Script" path="res://scripts/FiniteStateMachine.cs" id="3_iptr8"]
+[ext_resource type="Script" path="res://scripts/IdleState.cs" id="4_fu4ir"]
+[ext_resource type="Script" path="res://scripts/MovingState.cs" id="5_frn1l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7mv5"]
+size = Vector2(13, 14)
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_jhtur")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_m7mv5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_4fc16")
+animation = &"moveDown"
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("3_iptr8")
+initialState = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("4_fu4ir")
+
+[node name="MovingState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("5_frn1l")
