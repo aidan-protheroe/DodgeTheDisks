@@ -3,10 +3,22 @@ using System;
 
 public partial class Heart : AnimatedSprite2D
 {
-	// Called when the node enters the scene tree for the first time.
+	public bool Full = true;
+	
 	public override void _Ready()
 	{
 		Animation = "full";
+	}
+
+	public void Toggle(int mode) {
+		if (mode == 0) {
+			Animation = "empty";
+			Full = false;
+		} else {
+			Animation = "full";
+			Full = true;
+		}
+		
 	}
 
 }

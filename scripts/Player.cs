@@ -23,4 +23,11 @@ public partial class Player : CharacterBody2D
 		Sprite.Animation = "idleDown";
 		Sprite.Play();
 	}
+	
+	public void Hit() {
+		Health--;
+		//bloodsplatter -- actually prob has to be done by arena class
+		//Make invincible???
+		//add death check
+	}
 }

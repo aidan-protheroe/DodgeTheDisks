@@ -38,3 +38,9 @@ public partial class Main : Node
 //equipemt rthat slows down time when dashing
 
 //can purtchaswe extra equipment slots (maybe only in game loop with coins? To make it harder? )
+//when you get hit all disks disapear
+
+//do you even need to keep a list of disks?
+
+//add max size and max speed to disks, focus more on  adding more disks at a certain point
+//give stamina bar same aesthetic as hearts, white outline white fill

@@ -19,6 +19,8 @@ public partial class Arena : Node2D
 	public PackedScene DiskScene;
 	public PackedScene HeartScene;
 	
+	public Array<Heart> Hearts;
+	
 	public float TotalTime = 0f; 
 	public int Difficulty = 0;
 	
@@ -35,6 +37,8 @@ public partial class Arena : Node2D
 		Player = GetNode<Player>("Player");
 		
 		HeartScene = GD.Load<PackedScene>("res://scenes/Heart.tscn");
+		
+		Hearts = new Array<Heart>();
 		
 		Paths = new Array<PathFollow2D>() {
 			GetNode<PathFollow2D>("Path2D/PathFollow2D"),
@@ -55,6 +59,7 @@ public partial class Arena : Node2D
 		for (int i = 0 ; i < Player.Health ; i++) {
 			var h = (Heart) HeartScene.Instantiate();
 			h.Position = new Vector2 (80 + (i*70), 30);
+			Hearts.Add(h);
 			HeartContainer.AddChild(h);
 		}
 
@@ -66,13 +71,13 @@ public partial class Arena : Node2D
 		AvailableDisks = LG.Generate(0, 3);
 	}
 
-	public override void _Process(double delta)
+	public override void _Process(double delta) //split into several methods
 	{
 		foreach (PathFollow2D path in Paths) {
 			path.Progress++;
 		}
 		
-		TotalTime += (float)delta ;
+		TotalTime += (float)delta;
 		TimeLabel.Text = TotalTime.ToString("0.0");
 		
 		PlayerStaminaBar.Value = (Player.Stamina/Player.MaxStamina) * 100;
@@ -90,6 +95,35 @@ public partial class Arena : Node2D
 			IncreasedDifficulty = false;
 		} else if ((int)TotalTime % 20 == 1) {
 			GeneratedNewDisks = false;
+		}
+		
+		var DisksToRemove = new Array<Disk>();
+		foreach (Disk d in Disks) {
+			if (d.OffScreen) {
+				DisksToRemove.Add(d);
+			} else if (d.HasOverlappingBodies()) {
+				foreach (var b in d.GetOverlappingBodies()) {
+					if (b.Name == "Player") {
+						Player.Hit();
+						for (int i = Hearts.Count - 1; i >= 0 ; i--) { //just add a method that takes player healrh and does all this
+							if (Hearts[i].Full) {
+								Hearts[i].Toggle(0);
+								break;
+							}
+						}
+						foreach (Disk disk in Disks) {
+							disk.QueueFree();
+						}
+						Disks = new Array<Disk>();
+					}
+				}
+			}
+		}
+		
+		foreach (Disk d in DisksToRemove) {
+			Disks.Remove(d);
+			d.QueueFree();
+			GD.Print("Removed");
 		}
 	}
 

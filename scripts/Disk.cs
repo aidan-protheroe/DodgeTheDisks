@@ -6,6 +6,8 @@ public partial class Disk : Area2D
 	private Vector2 Direction = Vector2.Zero;
 	private float Speed;
 	public Sprite2D Sprite;
+	
+	public bool OffScreen;
 
 	public void init(Vector2 position, Vector2 directionToPlayer, DiskData data) {
 		Sprite = GetNode<Sprite2D>("Sprite2D");
@@ -28,4 +30,12 @@ public partial class Disk : Area2D
 		Sprite.RotationDegrees-=2;
 		Position = new Vector2(Position.X + (Direction.X * Speed), Position.Y + (Direction.Y * Speed));
 	}
+	
+	private void OnScreenExited()
+	{
+		OffScreen = true;
+	}
 }
+
+
+
