@@ -18,6 +18,7 @@ public partial class Arena : Node2D
 
 	public PackedScene DiskScene;
 	public PackedScene HeartScene;
+	public PackedScene BloodSplatterScene;
 	
 	public Array<Heart> Hearts;
 	
@@ -37,6 +38,7 @@ public partial class Arena : Node2D
 		Player = GetNode<Player>("Player");
 		
 		HeartScene = GD.Load<PackedScene>("res://scenes/Heart.tscn");
+		BloodSplatterScene = GD.Load<PackedScene>("res://scenes/BloodSplatter.tscn");
 		
 		Hearts = new Array<Heart>();
 		
@@ -105,6 +107,10 @@ public partial class Arena : Node2D
 				foreach (var b in d.GetOverlappingBodies()) {
 					if (b.Name == "Player") {
 						Player.Hit();
+						var bs = (BloodSplatter) BloodSplatterScene.Instantiate();
+						AddChild(bs);
+						bs.Position = Player.Position;
+						
 						for (int i = Hearts.Count - 1; i >= 0 ; i--) { //just add a method that takes player healrh and does all this
 							if (Hearts[i].Full) {
 								Hearts[i].Toggle(0);
