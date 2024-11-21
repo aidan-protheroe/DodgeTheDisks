@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_7yiso"]
 [ext_resource type="Script" path="res://scripts/Arena.cs" id="1_nkdgo"]
 [ext_resource type="PackedScene" uid="uid://fjyv0be307uv" path="res://scenes/Player.tscn" id="2_tp4h1"]
-[ext_resource type="Texture2D" uid="uid://m62mso4xh6to" path="res://assets/HeartFull.png" id="4_bjkgj"]
+[ext_resource type="PackedScene" uid="uid://4e3thgkwp1gr" path="res://scenes/Flower.tscn" id="4_7iqgd"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_miplu"]
 
@@ -141,25 +141,10 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 0
 columns = 3
 
-[node name="TextureRect4" type="TextureRect" parent="UI/HeartGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_bjkgj")
-stretch_mode = 4
+[node name="Flower" parent="." instance=ExtResource("4_7iqgd")]
+position = Vector2(673, 368)
 
-[node name="TextureRect5" type="TextureRect" parent="UI/HeartGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_bjkgj")
-stretch_mode = 4
-
-[node name="TextureRect6" type="TextureRect" parent="UI/HeartGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_bjkgj")
-stretch_mode = 4
+[node name="FlowerTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="DiskTimer" to="." method="OnDiskTimerTimeout"]
+[connection signal="timeout" from="FlowerTimer" to="." method="OnFlowerTimerTimeout"]

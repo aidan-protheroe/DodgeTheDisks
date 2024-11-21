@@ -1,30 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://fc77bq2s7v42"]
+[gd_scene load_steps=2 format=3 uid="uid://fc77bq2s7v42"]
 
-[ext_resource type="Texture2D" uid="uid://bnegyawwp1yik" path="res://assets/HeartEmpty.png" id="1_wcjb5"]
-[ext_resource type="Texture2D" uid="uid://m62mso4xh6to" path="res://assets/HeartFull.png" id="2_rfp3k"]
 [ext_resource type="Script" path="res://Heart.cs" id="3_kkqxr"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ecld5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_wcjb5")
-}],
-"loop": true,
-"name": &"empty",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_rfp3k")
-}],
-"loop": true,
-"name": &"full",
-"speed": 5.0
-}]
-
-[node name="Heart" type="AnimatedSprite2D"]
+[node name="Heart" type="TextureRect"]
 scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_ecld5")
-animation = &"full"
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("3_kkqxr")

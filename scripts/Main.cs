@@ -48,3 +48,9 @@ public partial class Main : Node
 //active itemd can be used with space, like clearing all disks on screen
 
 //do heartGrid size changes when numOfHearts % 3 = 1, add 1 heart height + buffer size to accomeadte
+
+//add several exports(maybe in a autoload) for debugging, like game speed, etc. Eventauly add a debug menu in-game maybe?
+
+//instead of coins do flowers? they sprout up and die in a few seconds if not collected
+
+//remove all flowers when player gets hit, just like disks

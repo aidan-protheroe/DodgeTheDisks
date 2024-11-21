@@ -15,12 +15,17 @@ public partial class Arena : Node2D
 	public Label TimeLabel;
 	public ProgressBar PlayerStaminaBar;
 	public Node HeartContainer;
+	public GridContainer HeartGrid;
+	
+	public Timer FlowerTimer;
 
 	public PackedScene DiskScene;
 	public PackedScene HeartScene;
 	public PackedScene BloodSplatterScene;
+	public PackedScene FlowerScene;
 	
 	public Array<Heart> Hearts;
+	public Array<Flower> Flowers;
 	
 	public float TotalTime = 0f; 
 	public int Difficulty = 0;
@@ -37,10 +42,16 @@ public partial class Arena : Node2D
 		
 		Player = GetNode<Player>("Player");
 		
+		FlowerTimer = GetNode<Timer>("FlowerTimer");
+		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
+		FlowerTimer.Start();
+		
 		HeartScene = GD.Load<PackedScene>("res://scenes/Heart.tscn");
 		BloodSplatterScene = GD.Load<PackedScene>("res://scenes/BloodSplatter.tscn");
+		FlowerScene = GD.Load<PackedScene>("res://scenes/Flower.tscn");
 		
 		Hearts = new Array<Heart>();
+		Flowers = new Array<Flower>();
 		
 		Paths = new Array<PathFollow2D>() {
 			GetNode<PathFollow2D>("Path2D/PathFollow2D"),
@@ -58,11 +69,12 @@ public partial class Arena : Node2D
 		TimeLabel = GetNode<Label>("UI/TimeLabel");
 		PlayerStaminaBar = GetNode<ProgressBar>("UI/PlayerStaminaBar");
 		HeartContainer = GetNode<Node>("UI/HeartContainer");
+		HeartGrid = GetNode<GridContainer>("UI/HeartGrid");
+		
 		for (int i = 0 ; i < Player.Health ; i++) {
 			var h = (Heart) HeartScene.Instantiate();
-			h.Position = new Vector2 (80 + (i*70), 30);
 			Hearts.Add(h);
-			HeartContainer.AddChild(h);
+			HeartGrid.AddChild(h);
 		}
 
 		DiskScene = GD.Load<PackedScene>("res://scenes/Disk.tscn");
@@ -125,11 +137,26 @@ public partial class Arena : Node2D
 				}
 			}
 		}
-		
+			
 		foreach (Disk d in DisksToRemove) {
 			Disks.Remove(d);
 			d.QueueFree();
 			GD.Print("Removed");
+		}
+		
+		var FlowersToRemove = new Array<Flower>();
+		foreach (Flower f in Flowers) {
+			if (f.Alive == false) {
+				if (f.AnimateDeath) {
+					//add DyingFlower, which queueFrees itself
+				} 
+				FlowersToRemove.Add(f);
+				f.QueueFree();
+			}
+		}
+		
+		foreach (Flower f in FlowersToRemove) {
+			Flowers.Remove(f);
 		}
 	}
 
@@ -151,6 +178,20 @@ public partial class Arena : Node2D
 		DiskTimer.WaitTime = rnd.Next(2) + (float)rnd.NextDouble();
 		DiskTimer.Start();
 	}
+	
+	private void OnFlowerTimerTimeout()
+	{
+		var flower = (Flower)FlowerScene.Instantiate();
+		flower.Position = new Vector2(rnd.Next(704) + 448, rnd.Next(640) + 128);
+		Flowers.Add(flower);
+		AddChild(flower);
+		
+		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
+		FlowerTimer.Start();
+	}
 }
+
+
+
 
 

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://4e3thgkwp1gr"]
+
+[ext_resource type="Script" path="res://Flower.cs" id="1_kelg6"]
+[ext_resource type="Texture2D" uid="uid://digrqmp8med66" path="res://assets/flower.png" id="2_7d3lj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ija3m"]
+size = Vector2(16, 16)
+
+[node name="Flower" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_kelg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7d3lj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.38419e-07, 2.38419e-07)
+shape = SubResource("RectangleShape2D_ija3m")
+
+[node name="LifeTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="timeout" from="LifeTimer" to="." method="OnLifeTimerTimeout"]
