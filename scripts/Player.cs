@@ -26,7 +26,7 @@ public partial class Player : CharacterBody2D
 		Sprite.Play();
 	}
 	
-	public void Hit() {
+	public void Hit() { //not using rn
 		Health--;
 		//bloodsplatter -- actually prob has to be done by arena class
 		//Make invincible???

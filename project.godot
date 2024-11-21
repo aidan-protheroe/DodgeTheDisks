@@ -22,6 +22,7 @@ DiskDataLoader="*res://DiskDataLoader.cs"
 
 window/size/viewport_width=1600
 window/size/viewport_height=896
+window/stretch/mode="viewport"
 
 [dotnet]
 

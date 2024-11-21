@@ -53,7 +53,8 @@ public partial class Main : Node
 
 
 //remove all flowers when player gets hit, just like disks?
-
+//rare chance for a chest to spawn, giving a free item?
+//either have flower collisions work like disk collision or vice versa
 
 //UPGRADE IDEAS(apply points to upgrade, permanent):
 //Health+ 
@@ -68,6 +69,7 @@ public partial class Main : Node
 //Health+
 //Stamina+
 //Speed+
+//survive death once
 
 //ACTIVE ITEM IDEAS(acquired and used inside arena, can be used on purhcase or 1 can be held):
 //Destroy all disks on screen
