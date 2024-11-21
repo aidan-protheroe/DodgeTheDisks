@@ -12,5 +12,4 @@ public partial class BloodSplatter : CpuParticles2D
 		SetProcessUnhandledInput(false);
 		SetProcessUnhandledKeyInput(false);
 	}
-
 }

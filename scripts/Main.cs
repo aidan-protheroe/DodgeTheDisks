@@ -51,6 +51,26 @@ public partial class Main : Node
 
 //add several exports(maybe in a autoload) for debugging, like game speed, etc. Eventauly add a debug menu in-game maybe?
 
-//instead of coins do flowers? they sprout up and die in a few seconds if not collected
 
-//remove all flowers when player gets hit, just like disks
+//remove all flowers when player gets hit, just like disks?
+
+
+//UPGRADE IDEAS(apply points to upgrade, permanent):
+//Health+ 
+//Stamina+ 
+//Speed+
+
+
+//PASSIVE ITEM IDEAS(acquired inside arena):
+//increase flower spawn rate
+//increase flower lifetime
+//decrease disk spawn rate or size or speed
+//Health+
+//Stamina+
+//Speed+
+
+//ACTIVE ITEM IDEAS(acquired and used inside arena, can be used on purhcase or 1 can be held):
+//Destroy all disks on screen
+//refill health(comes in 1 or 3 variantsd)
+//refill stamina(comes in 1/2 or full variants)
+//flower spawn rate increase signifigantly for a set time

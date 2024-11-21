@@ -23,6 +23,7 @@ public partial class Arena : Node2D
 	public PackedScene HeartScene;
 	public PackedScene BloodSplatterScene;
 	public PackedScene FlowerScene;
+	public PackedScene DyingFlowerScene;
 	
 	public Array<Heart> Hearts;
 	public Array<Flower> Flowers;
@@ -49,6 +50,7 @@ public partial class Arena : Node2D
 		HeartScene = GD.Load<PackedScene>("res://scenes/Heart.tscn");
 		BloodSplatterScene = GD.Load<PackedScene>("res://scenes/BloodSplatter.tscn");
 		FlowerScene = GD.Load<PackedScene>("res://scenes/Flower.tscn");
+		DyingFlowerScene = GD.Load<PackedScene>("res://scenes/DyingFlower.tscn");
 		
 		Hearts = new Array<Heart>();
 		Flowers = new Array<Flower>();
@@ -148,7 +150,9 @@ public partial class Arena : Node2D
 		foreach (Flower f in Flowers) {
 			if (f.Alive == false) {
 				if (f.AnimateDeath) {
-					//add DyingFlower, which queueFrees itself
+					var df = (DyingFlower)DyingFlowerScene.Instantiate();
+					df.Position = f.Position;
+					AddChild(df);
 				} 
 				FlowersToRemove.Add(f);
 				f.QueueFree();

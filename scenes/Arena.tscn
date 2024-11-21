@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cibcdmyfobf6i"]
+[gd_scene load_steps=12 format=3 uid="uid://cibcdmyfobf6i"]
 
 [ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_7yiso"]
 [ext_resource type="Script" path="res://scripts/Arena.cs" id="1_nkdgo"]
 [ext_resource type="PackedScene" uid="uid://fjyv0be307uv" path="res://scenes/Player.tscn" id="2_tp4h1"]
-[ext_resource type="PackedScene" uid="uid://4e3thgkwp1gr" path="res://scenes/Flower.tscn" id="4_7iqgd"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_miplu"]
 
@@ -78,30 +77,31 @@ progress = 3399.76
 
 [node name="TextureRect" type="TextureRect" parent="VisibleBorders"]
 modulate = Color(0, 0, 0, 1)
-offset_left = 318.0
-offset_right = 1279.0
+offset_left = -69.0
+offset_top = -94.0
+offset_right = 1690.0
 offset_bottom = 61.0
 texture = SubResource("CanvasTexture_60fdi")
 
 [node name="TextureRect2" type="TextureRect" parent="VisibleBorders"]
 modulate = Color(0, 0, 0, 1)
 offset_left = 1216.0
-offset_top = -2.0
-offset_right = 1600.0
-offset_bottom = 892.0
+offset_top = -92.0
+offset_right = 1690.0
+offset_bottom = 968.0
 texture = SubResource("CanvasTexture_fj5sb")
 
 [node name="TextureRect3" type="TextureRect" parent="VisibleBorders"]
 modulate = Color(0, 0, 0, 1)
-offset_left = 322.0
+offset_left = -66.0
 offset_top = 830.0
-offset_right = 1278.0
-offset_bottom = 893.0
+offset_right = 1687.0
+offset_bottom = 965.0
 texture = SubResource("CanvasTexture_ga6uc")
 
 [node name="TextureRect4" type="TextureRect" parent="VisibleBorders"]
 modulate = Color(0, 0, 0, 1)
-offset_left = -1.0
+offset_left = -71.0
 offset_right = 385.0
 offset_bottom = 900.0
 texture = SubResource("CanvasTexture_vt75i")
@@ -140,9 +140,6 @@ offset_bottom = 96.0
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 0
 columns = 3
-
-[node name="Flower" parent="." instance=ExtResource("4_7iqgd")]
-position = Vector2(673, 368)
 
 [node name="FlowerTimer" type="Timer" parent="."]
 
