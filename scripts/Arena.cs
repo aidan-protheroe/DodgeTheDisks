@@ -35,6 +35,8 @@ public partial class Arena : Node2D
 	public bool IncreasedDifficulty = false;
 	public bool GeneratedNewDisks = false;
 	
+	
+	public bool Healed = false;
 	public override void _Ready()
 	{
 		LoadNodes();
@@ -132,6 +134,11 @@ public partial class Arena : Node2D
 		} else if ((int)TotalTime % 20 == 1) {
 			GeneratedNewDisks = false;
 		}
+		
+		if ((int)TotalTime > 10 && !Healed) {
+			HealPlayer(10);
+			Healed = true;
+		}
 	}
 	
 	private void HandleDisks() {
@@ -161,12 +168,14 @@ public partial class Arena : Node2D
 		AddChild(bs);
 		bs.Position = Player.Position;
 		
-		for (int i = Hearts.Count - 1; i >= 0 ; i--) { //just add a method that takes player healrh and does all this
-			if (Hearts[i].Full) {
-				Hearts[i].Toggle(0);
-				break;
-			}
-		}
+		//for (int i = Hearts.Count - 1; i >= 0 ; i--) { //just add a method that takes player healrh and does all this
+		//	if (Hearts[i].Full) {
+		//		Hearts[i].Toggle(0);
+		//		break;
+		//	}
+		//}
+		
+		Hearts[Player.Health].Toggle(0);
 	}
 	
 	private void RemoveAllDisks() {
@@ -227,4 +236,30 @@ public partial class Arena : Node2D
 		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
 		FlowerTimer.Start();
 	}
+	
+	public void HealPlayer(int amount) {
+		for (int i = 0 ; i < amount; i++) {
+			GD.Print(Player.Health);
+			if (Player.Health < Player.MaxHealth) {
+				Hearts[Player.Health].Toggle(1);
+				Player.Health++;
+				
+				
+			}
+		}
+		
+		//for (int i = 0 ; i < Hearts.Count; i++) {
+		//	GD.Print(Hearts[i].Full);
+		//	if (!Hearts[i].Full) {
+		//		
+		//		Hearts[i].Toggle(1);
+		//		healed++;
+		//		Player.Health++;
+		//	}
+		//	if (healed >= amount) {
+		//		
+		//		return;
+		//	}
+		//}
+	} 
 }
