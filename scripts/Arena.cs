@@ -35,8 +35,8 @@ public partial class Arena : Node2D
 	public bool IncreasedDifficulty = false;
 	public bool GeneratedNewDisks = false;
 	
+	public bool refilledStamina = false;
 	
-	public bool Healed = false;
 	public override void _Ready()
 	{
 		LoadNodes();
@@ -135,9 +135,9 @@ public partial class Arena : Node2D
 			GeneratedNewDisks = false;
 		}
 		
-		if ((int)TotalTime > 10 && !Healed) {
-			HealPlayer(10);
-			Healed = true;
+		if ((int)TotalTime > 10 && !refilledStamina) {
+			RefillPlayerStamina(.75f);
+			refilledStamina = true;
 		}
 	}
 	
@@ -164,18 +164,11 @@ public partial class Arena : Node2D
 	
 	private void PlayerHit() {
 		Player.Health--;
+		Hearts[Player.Health].Toggle(0);
+		
 		var bs = (BloodSplatter) BloodSplatterScene.Instantiate();
 		AddChild(bs);
 		bs.Position = Player.Position;
-		
-		//for (int i = Hearts.Count - 1; i >= 0 ; i--) { //just add a method that takes player healrh and does all this
-		//	if (Hearts[i].Full) {
-		//		Hearts[i].Toggle(0);
-		//		break;
-		//	}
-		//}
-		
-		Hearts[Player.Health].Toggle(0);
 	}
 	
 	private void RemoveAllDisks() {
@@ -239,27 +232,17 @@ public partial class Arena : Node2D
 	
 	public void HealPlayer(int amount) {
 		for (int i = 0 ; i < amount; i++) {
-			GD.Print(Player.Health);
 			if (Player.Health < Player.MaxHealth) {
 				Hearts[Player.Health].Toggle(1);
 				Player.Health++;
-				
-				
 			}
 		}
-		
-		//for (int i = 0 ; i < Hearts.Count; i++) {
-		//	GD.Print(Hearts[i].Full);
-		//	if (!Hearts[i].Full) {
-		//		
-		//		Hearts[i].Toggle(1);
-		//		healed++;
-		//		Player.Health++;
-		//	}
-		//	if (healed >= amount) {
-		//		
-		//		return;
-		//	}
-		//}
+	}
+	
+	public void RefillPlayerStamina(float percent) {
+		Player.Stamina += Player.MaxStamina * percent;
+		if (Player.Stamina > Player.MaxStamina) {
+			Player.Stamina = Player.MaxStamina;
+		}
 	} 
 }
