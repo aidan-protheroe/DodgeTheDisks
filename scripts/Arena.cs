@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 public partial class Arena : Node2D
 {
-	public Player Player;
-	public LoadoutGenerator LG;
+	//Objects
 	public Random rnd;
-	
+	public LoadoutGenerator LG;
+	//Nodes
+	public Player Player;
 	public Timer DiskTimer;
 	public Label TimeLabel;
 	public ProgressBar PlayerStaminaBar;
@@ -16,42 +17,73 @@ public partial class Arena : Node2D
 	public GridContainer HeartGrid;
 	public Timer FlowerTimer;
 	public Label FlowerLabel;
-
+	//scenes
 	public PackedScene DiskScene;
 	public PackedScene HeartScene;
 	public PackedScene BloodSplatterScene;
 	public PackedScene FlowerScene;
 	public PackedScene DyingFlowerScene;
-	
+	//arrays
 	public Array<PathFollow2D> Paths;
 	public Array<Disk> Disks;
 	public List<DiskData> AvailableDisks;
 	public Array<Heart> Hearts;
 	public Array<Flower> Flowers;
-	
+	//data
 	public float TotalTime = 0f; 
 	public int Difficulty = 0;
-	
 	public bool IncreasedDifficulty = false;
 	public bool GeneratedNewDisks = false;
 	
 	public override void _Ready()
 	{
+		LoadNodes();
+		LoadScenes();
+		LoadArrays();
+		
 		rnd = new Random();
+		LG = new LoadoutGenerator();
 		
-		Player = GetNode<Player>("Player");
-		
-		FlowerTimer = GetNode<Timer>("FlowerTimer");
 		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
 		FlowerTimer.Start();
 		
+		DiskTimer.WaitTime = 2f;
+		DiskTimer.Start();
+		
+		for (int i = 0 ; i < Player.Health ; i++) {
+			var h = (Heart) HeartScene.Instantiate();
+			Hearts.Add(h);
+			HeartGrid.AddChild(h);
+		}
+		
+		AvailableDisks = LG.Generate(0, 3);
+	}
+	
+	private void LoadNodes() {
+		Player = GetNode<Player>("Player");
+		//Timers
+		FlowerTimer = GetNode<Timer>("FlowerTimer");
+		DiskTimer = GetNode<Timer>("DiskTimer");
+		//UI
+		TimeLabel = GetNode<Label>("UI/TimeLabel");
+		PlayerStaminaBar = GetNode<ProgressBar>("UI/PlayerStaminaBar");
+		HeartContainer = GetNode<Node>("UI/HeartContainer");
+		HeartGrid = GetNode<GridContainer>("UI/HeartGrid");
+		FlowerLabel = GetNode<Label>("UI/FlowerLabel");
+	}
+	
+	private void LoadScenes() {
 		HeartScene = GD.Load<PackedScene>("res://scenes/Heart.tscn");
 		BloodSplatterScene = GD.Load<PackedScene>("res://scenes/BloodSplatter.tscn");
 		FlowerScene = GD.Load<PackedScene>("res://scenes/Flower.tscn");
 		DyingFlowerScene = GD.Load<PackedScene>("res://scenes/DyingFlower.tscn");
-		
+		DiskScene = GD.Load<PackedScene>("res://scenes/Disk.tscn");
+	}
+	
+	private void LoadArrays() {
 		Hearts = new Array<Heart>();
 		Flowers = new Array<Flower>();
+		Disks = new Array<Disk>();
 		
 		Paths = new Array<PathFollow2D>() {
 			GetNode<PathFollow2D>("Path2D/PathFollow2D"),
@@ -59,32 +91,8 @@ public partial class Arena : Node2D
 			GetNode<PathFollow2D>("Path2D/PathFollow2D3"),
 			GetNode<PathFollow2D>("Path2D/PathFollow2D4")
 		};
-
-		Disks = new Array<Disk>();
-
-		DiskTimer = GetNode<Timer>("DiskTimer");
-		DiskTimer.WaitTime = 2f;
-		DiskTimer.Start();
-		
-		TimeLabel = GetNode<Label>("UI/TimeLabel");
-		PlayerStaminaBar = GetNode<ProgressBar>("UI/PlayerStaminaBar");
-		HeartContainer = GetNode<Node>("UI/HeartContainer");
-		HeartGrid = GetNode<GridContainer>("UI/HeartGrid");
-		
-		FlowerLabel = GetNode<Label>("UI/FlowerLabel");
-		
-		for (int i = 0 ; i < Player.Health ; i++) {
-			var h = (Heart) HeartScene.Instantiate();
-			Hearts.Add(h);
-			HeartGrid.AddChild(h);
-		}
-
-		DiskScene = GD.Load<PackedScene>("res://scenes/Disk.tscn");
 		
 		AvailableDisks = new List<DiskData>();
-		
-		LG = new LoadoutGenerator();
-		AvailableDisks = LG.Generate(0, 3);
 	}
 
 	public override void _Process(double delta) //split into several methods
