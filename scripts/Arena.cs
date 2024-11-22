@@ -36,8 +36,10 @@ public partial class Arena : Node2D
 	public int Difficulty = 0;
 	public bool IncreasedDifficulty = false;
 	public bool GeneratedNewDisks = false;
+	public int FlowerSpawnRate = 10;
 	
-	public bool paddh = false;
+	public bool ifsr = false;
+	
 	public override void _Ready()
 	{
 		
@@ -124,11 +126,10 @@ public partial class Arena : Node2D
 			HandleFlowers();
 		}
 		
-		if (!paddh) {
-			PlusPlayerHeart(11);
-			paddh = true;
+		if (!ifsr) {
+			IncreaseFlowerSpawnRate(9);
+			ifsr = true;
 		}
-		
 	}
 	
 	private void CheckTimeFlags() {
@@ -169,7 +170,7 @@ public partial class Arena : Node2D
 		}
 	}
 	
-	private void PlayerHit() {
+	private void PlayerHit() { //add death conditions
 		Player.Health--;
 		Hearts[Player.Health].Toggle(0);
 		
@@ -233,10 +234,12 @@ public partial class Arena : Node2D
 		Flowers.Add(flower);
 		AddChild(flower);
 		
-		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
+		FlowerTimer.WaitTime = (float)(rnd.Next(FlowerSpawnRate) + 3);
 		FlowerTimer.Start();
 	}
 	
+	
+	//UPGRADE METHODS:
 	public void HealPlayer(int amount) { //add amount = 0 heal all heartrs
 		for (int i = 0 ; i < amount; i++) {
 			if (Player.Health < Player.MaxHealth) {
@@ -262,7 +265,10 @@ public partial class Arena : Node2D
 			HeartGrid.AddChild(h);
 		}
 		var sizeY = Math.Ceiling((double)Hearts.Count / 3);
-		HeartGrid.Size = new Vector2(HeartGrid.Size.X, (float)((55* sizeY)));
+		HeartGrid.Size = new Vector2(HeartGrid.Size.X, (float)((55 * sizeY)));
+	}
 	
+	public void IncreaseFlowerSpawnRate(int amount) {
+		FlowerSpawnRate -= amount;
 	}
 }
