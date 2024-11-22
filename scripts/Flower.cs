@@ -17,7 +17,7 @@ public partial class Flower : Area2D
 	{
 		rnd = new Random();
 		LifeTimer = GetNode<Timer>("LifeTimer");
-		LifeTimer.WaitTime = (float)(rnd.Next(5) + 3);
+		LifeTimer.WaitTime = (float)(rnd.Next(6) + 3);
 		LifeTimer.Start();
 		
 		Sprite = GetNode<Sprite2D>("Sprite2D");

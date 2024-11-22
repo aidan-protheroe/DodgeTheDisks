@@ -38,8 +38,6 @@ public partial class Arena : Node2D
 	public bool GeneratedNewDisks = false;
 	public int FlowerSpawnRate = 10;
 	
-	public bool ifsr = false;
-	
 	public override void _Ready()
 	{
 		
@@ -126,10 +124,6 @@ public partial class Arena : Node2D
 			HandleFlowers();
 		}
 		
-		if (!ifsr) {
-			IncreaseFlowerSpawnRate(9);
-			ifsr = true;
-		}
 	}
 	
 	private void CheckTimeFlags() {
@@ -266,6 +260,16 @@ public partial class Arena : Node2D
 		}
 		var sizeY = Math.Ceiling((double)Hearts.Count / 3);
 		HeartGrid.Size = new Vector2(HeartGrid.Size.X, (float)((55 * sizeY)));
+	}
+	
+	public void PlusPlayerStamina(float amount) {
+		Player.MaxStamina *= amount;
+		Player.Stamina *= amount;
+	}
+	
+	public void PlusPlayerSpeed(float amount) {
+		Player.Speed *= amount;
+		Player.RunSpeed *= amount;
 	}
 	
 	public void IncreaseFlowerSpawnRate(int amount) {

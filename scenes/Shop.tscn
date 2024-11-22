@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://du2meicfjfymc"]
+
+[ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_5x1in"]
+[ext_resource type="Script" path="res://scripts/Shop.cs" id="1_iemwq"]
+[ext_resource type="PackedScene" uid="uid://bpo26f3je6v3k" path="res://scenes/ShopCard.tscn" id="2_ukfgx"]
+[ext_resource type="FontFile" uid="uid://dx8ul73lvu2d0" path="res://assets/fonts/m5x7.ttf" id="3_qrfwj"]
+[ext_resource type="SpriteFrames" uid="uid://bo7qgdn0ss57t" path="res://assets/Resources/Pointer.tres" id="4_levxn"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_s31ux"]
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iemwq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 298.0
+offset_top = -12.0
+offset_right = 1296.0
+offset_bottom = 915.0
+texture = SubResource("CanvasTexture_s31ux")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("1_5x1in")
+format = 2
+layer_0/tile_data = PackedInt32Array(851973, 1310724, 12, 851987, 1441796, 12, 19, 1441796, 10, 5, 1310724, 10, 6, 1376260, 10, 7, 1376260, 10, 8, 1376260, 10, 9, 1376260, 10, 10, 1376260, 10, 11, 1376260, 10, 12, 1376260, 10, 13, 1376260, 10, 14, 1376260, 10, 15, 1376260, 10, 16, 1376260, 10, 17, 1376260, 10, 18, 1376260, 10, 65555, 1441796, 11, 131091, 1441796, 11, 196627, 1441796, 11, 262163, 1441796, 11, 327699, 1441796, 11, 393235, 1441796, 11, 458771, 1441796, 11, 524307, 1441796, 11, 589843, 1441796, 11, 655379, 1441796, 11, 720915, 1441796, 11, 786451, 1441796, 11, 851986, 1376260, 12, 851985, 1376260, 12, 851984, 1376260, 12, 851983, 1376260, 12, 851982, 1376260, 12, 851981, 1376260, 12, 851980, 1376260, 12, 851979, 1376260, 12, 851978, 1376260, 12, 851977, 1376260, 12, 851976, 1376260, 12, 851975, 1376260, 12, 851974, 1376260, 12, 65541, 1310724, 11, 131077, 1310724, 11, 196613, 1310724, 11, 262149, 1310724, 11, 327685, 1310724, 11, 393221, 1310724, 11, 458757, 1310724, 11, 524293, 1310724, 11, 589829, 1310724, 11, 655365, 1310724, 11, 720901, 1310724, 11, 786437, 1310724, 11, 589838, 1703940, 13, 589837, 1638404, 13, 589836, 1638404, 13, 589835, 1638404, 13, 589834, 1507332, 13, 655370, 1507332, 15, 720906, 1507332, 16, 720907, 1572868, 16, 720908, 1572868, 16, 720909, 1572868, 16, 720910, 1703940, 16, 655374, 1703940, 15)
+
+[node name="ShopCard3" parent="." instance=ExtResource("2_ukfgx")]
+layout_mode = 1
+offset_left = 995.0
+offset_top = 228.0
+offset_right = -413.0
+offset_bottom = -449.0
+
+[node name="ShopCard2" parent="." instance=ExtResource("2_ukfgx")]
+layout_mode = 1
+offset_left = 694.0
+offset_top = 228.0
+offset_right = -714.0
+offset_bottom = -447.0
+
+[node name="ShopCard" parent="." instance=ExtResource("2_ukfgx")]
+layout_mode = 1
+offset_left = 422.0
+offset_top = 228.0
+offset_right = -986.0
+offset_bottom = -449.0
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 76.0
+offset_right = 90.0
+offset_bottom = 171.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_qrfwj")
+theme_override_font_sizes/font_size = 120
+text = "SHOP"
+
+[node name="Pointer" type="AnimatedSprite2D" parent="."]
+position = Vector2(798, 783)
+rotation = 4.71239
+scale = Vector2(2.5, 2.5)
+sprite_frames = ExtResource("4_levxn")
+frame_progress = 0.196873
+
+[node name="ExitLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = -271.0
+offset_right = 91.0
+offset_bottom = -176.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_qrfwj")
+theme_override_font_sizes/font_size = 120
+text = "EXIT"

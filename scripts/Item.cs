@@ -21,14 +21,14 @@ public class ItemLoader {
 		LevelOneItems = new List<Item>() {
 			new Item() {
 				Name = "SingleHeart",
-				Sprite = null,
+				Sprite = GD.Load<Texture2D>("res://assets/upgrades/heartx1.png"),
 				Price = 5,
 				Effect = "Heal",
 				Amount = 1f
 			},
 			new Item() {
 				Name = "HalfStamina",
-				Sprite = null,
+				Sprite =  GD.Load<Texture2D>("res://assets/upgrades/staminahalf.png"),
 				Price = 8,
 				Effect = "Stamina",
 				Amount = .5f
@@ -38,27 +38,27 @@ public class ItemLoader {
 				Sprite = null,
 				Price = 12,
 				Effect = "FlowerSpawnRate",
-				Amount = 1.25f
+				Amount = 1f
 			}
 		};
 		LevelTwoItems = new List<Item>() {
 			new Item() {
 				Name = "TripleHeart",
-				Sprite = null,
+				Sprite =  GD.Load<Texture2D>("res://assets/upgrades/heartx3.png"),
 				Price = 12,
 				Effect = "Heal",
 				Amount = 3f
 			},
 			new Item() {
 				Name = "PlusHeart",
-				Sprite = null,
+				Sprite =  GD.Load<Texture2D>("res://assets/upgrades/plusHeart.png"),
 				Price = 16,
 				Effect = "PlusHeart",
 				Amount = 1f
 			},
 			new Item() {
 				Name = "PlusStamina",
-				Sprite = null,
+				Sprite =  GD.Load<Texture2D>("res://assets/upgrades/plusStamina.png"),
 				Price = 16,
 				Effect = "PlusStamina",
 				Amount = 1.25f
@@ -74,14 +74,14 @@ public class ItemLoader {
 		LevelThreeItems = new List<Item>() {
 			new Item() {
 				Name = "AllHearts",
-				Sprite = null,
+				Sprite =  GD.Load<Texture2D>("res://assets/upgrades/heartxall.png"),
 				Price = 24,
 				Effect = "Heal",
 				Amount = 0f
 			},
 			new Item() {
 				Name = "FullStamina",
-				Sprite = null,
+				Sprite =  GD.Load<Texture2D>("res://assets/upgrades/staminaAll.png"),
 				Price = 18,
 				Effect = "Stamina",
 				Amount = 1f

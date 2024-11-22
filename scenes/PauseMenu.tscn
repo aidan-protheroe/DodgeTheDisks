@@ -1,76 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://3eqxdr6pq6fr"]
+[gd_scene load_steps=6 format=3 uid="uid://3eqxdr6pq6fr"]
 
 [ext_resource type="Script" path="res://scripts/PauseMenu.cs" id="1_gvsrq"]
 [ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_su05x"]
 [ext_resource type="FontFile" uid="uid://dx8ul73lvu2d0" path="res://assets/fonts/m5x7.ttf" id="2_v7w3m"]
-[ext_resource type="Texture2D" uid="uid://b8wb7belnxt0h" path="res://assets/pointer/pointer.png" id="4_11sq1"]
-[ext_resource type="Texture2D" uid="uid://d0fibl87d4wjk" path="res://assets/pointer/pointer1.png" id="5_h7pb6"]
-[ext_resource type="Texture2D" uid="uid://b8uyuv1y8kwy6" path="res://assets/pointer/pointer2.png" id="6_fekr5"]
-[ext_resource type="Texture2D" uid="uid://c5feog2lkgf75" path="res://assets/pointer/pointer3.png" id="7_mkpd0"]
-[ext_resource type="Texture2D" uid="uid://uaxu7l7nru45" path="res://assets/pointer/pointer4.png" id="8_33wj4"]
-[ext_resource type="Texture2D" uid="uid://cuih7086s5qxi" path="res://assets/pointer/pointer5.png" id="9_ld6ux"]
-[ext_resource type="Texture2D" uid="uid://bcpkc5j170up5" path="res://assets/pointer/pointer6.png" id="10_v15ae"]
+[ext_resource type="SpriteFrames" uid="uid://bo7qgdn0ss57t" path="res://assets/Resources/Pointer.tres" id="4_0lyo2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_g1boc"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4r1ku"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_11sq1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_h7pb6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_fekr5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_mkpd0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_33wj4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_ld6ux")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_v15ae")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_ld6ux")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_33wj4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_mkpd0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_fekr5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_h7pb6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_11sq1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_11sq1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_11sq1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_11sq1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_11sq1")
-}],
-"loop": true,
-"name": &"default",
-"speed": 12.0
-}]
 
 [node name="PauseMenu" type="Control"]
 z_index = 3
@@ -122,5 +57,5 @@ text = "MAIN MENU"
 z_index = 3
 position = Vector2(674, 411)
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_4r1ku")
-frame_progress = 0.925835
+sprite_frames = ExtResource("4_0lyo2")
+frame_progress = 0.743057

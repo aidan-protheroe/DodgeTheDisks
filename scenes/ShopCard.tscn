@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpo26f3je6v3k"]
+
+[ext_resource type="Texture2D" uid="uid://digrqmp8med66" path="res://assets/flower.png" id="1_fl87k"]
+[ext_resource type="Script" path="res://scripts/ShopCard.cs" id="1_kjqq4"]
+[ext_resource type="FontFile" uid="uid://dx8ul73lvu2d0" path="res://assets/fonts/m5x7.ttf" id="2_ng7yu"]
+[ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="4_u6rn7"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nfgci"]
+
+[node name="ShopCard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -38.0
+offset_right = -1409.0
+offset_bottom = -713.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kjqq4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006
+anchor_top = 0.285
+anchor_right = 0.006
+anchor_bottom = 0.285
+offset_left = 2.86
+offset_top = -26.985
+offset_right = 188.86
+offset_bottom = 157.015
+texture = SubResource("CanvasTexture_nfgci")
+
+[node name="FlowerSprite" type="Sprite2D" parent="."]
+position = Vector2(64.975, 174.625)
+scale = Vector2(2, 2)
+texture = ExtResource("1_fl87k")
+
+[node name="PriceLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.34
+anchor_bottom = 0.34
+offset_left = 90.975
+offset_top = 81.045
+offset_right = 159.975
+offset_bottom = 129.045
+theme_override_fonts/font = ExtResource("2_ng7yu")
+theme_override_font_sizes/font_size = 60
+text = "x00"
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+position = Vector2(97.975, 99.625)
+scale = Vector2(5.725, 5.725)
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("4_u6rn7")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 1310724, 13, 131072, 1310724, 14, 196608, 1310724, 16, 65538, 1441796, 14, 131074, 1441796, 14, 196610, 1441796, 16, 65536, 1310724, 14, 1, 1376260, 13, 196609, 1376260, 16, 2, 1441796, 13)
