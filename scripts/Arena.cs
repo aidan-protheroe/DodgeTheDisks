@@ -8,6 +8,7 @@ public partial class Arena : Node2D
 	//Objects
 	public Random rnd;
 	public LoadoutGenerator LG;
+	public ItemLoader IL;
 	//Nodes
 	public Player Player;
 	public Timer DiskTimer;
@@ -29,22 +30,26 @@ public partial class Arena : Node2D
 	public List<DiskData> AvailableDisks;
 	public Array<Heart> Hearts;
 	public Array<Flower> Flowers;
+	public List<Item> AvailableItems;
 	//data
 	public float TotalTime = 0f; 
 	public int Difficulty = 0;
 	public bool IncreasedDifficulty = false;
 	public bool GeneratedNewDisks = false;
 	
-	public bool refilledStamina = false;
-	
+	public bool paddh = false;
 	public override void _Ready()
 	{
+		
+		rnd = new Random();
+		LG = new LoadoutGenerator();
+		IL = new ItemLoader();
+		
 		LoadNodes();
 		LoadScenes();
 		LoadArrays();
 		
-		rnd = new Random();
-		LG = new LoadoutGenerator();
+
 		
 		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
 		FlowerTimer.Start();
@@ -95,6 +100,7 @@ public partial class Arena : Node2D
 		};
 		
 		AvailableDisks = new List<DiskData>();
+		AvailableItems = IL.LevelOneItems;
 	}
 
 	public override void _Process(double delta) //split into several methods
@@ -117,6 +123,12 @@ public partial class Arena : Node2D
 		if (Flowers.Count > 0) {
 			HandleFlowers();
 		}
+		
+		if (!paddh) {
+			PlusPlayerHeart(11);
+			paddh = true;
+		}
+		
 	}
 	
 	private void CheckTimeFlags() {
@@ -133,11 +145,6 @@ public partial class Arena : Node2D
 			IncreasedDifficulty = false;
 		} else if ((int)TotalTime % 20 == 1) {
 			GeneratedNewDisks = false;
-		}
-		
-		if ((int)TotalTime > 10 && !refilledStamina) {
-			RefillPlayerStamina(.75f);
-			refilledStamina = true;
 		}
 	}
 	
@@ -230,7 +237,7 @@ public partial class Arena : Node2D
 		FlowerTimer.Start();
 	}
 	
-	public void HealPlayer(int amount) {
+	public void HealPlayer(int amount) { //add amount = 0 heal all heartrs
 		for (int i = 0 ; i < amount; i++) {
 			if (Player.Health < Player.MaxHealth) {
 				Hearts[Player.Health].Toggle(1);
@@ -245,4 +252,17 @@ public partial class Arena : Node2D
 			Player.Stamina = Player.MaxStamina;
 		}
 	} 
+	
+	public void PlusPlayerHeart(int amount) {
+		for (int i = 0 ; i < amount ; i++) {
+			Player.MaxHealth++;
+			Player.Health++;
+			var h = (Heart) HeartScene.Instantiate();
+			Hearts.Add(h);
+			HeartGrid.AddChild(h);
+		}
+		var sizeY = Math.Ceiling((double)Hearts.Count / 3);
+		HeartGrid.Size = new Vector2(HeartGrid.Size.X, (float)((55* sizeY)));
+	
+	}
 }

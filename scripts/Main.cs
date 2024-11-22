@@ -33,15 +33,11 @@ public partial class Main : Node
 }
 
 
-//add time flags for what kind of disks can be spawned (at 1 min spawn x and y, and 2 min spawn z and a, etc)
 //add flags for how many disks can spawn at the same time(1-4, maybe more)
 //Every 2 minutes a shop appears? for things run only
 //two kind sof currency - one for during game, one for in hub to purchase upgrades
-//maybe eventually just randomize every single aspect of the disks, with ddifferent ranges and options available as duifficulty increases
 //add a MaxDisksOnScreen var that can increase with difficulty
 //or potientally have an algorithm that can determine how many can be on screen deopending on the total comvined size of the disks that are available
-
-//add a CD disk
 
 //give the DiskGenerator a point system, where it can spend points(the max depends on difficulty) to give each variable 
 //you can buy equipment in the store outside of the main loop and can equip 3 items at a time? stuff like slower disks, extera health/stamina, faster speed, etc
