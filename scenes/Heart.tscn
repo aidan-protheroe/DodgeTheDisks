@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://fc77bq2s7v42"]
 
-[ext_resource type="Script" path="res://Heart.cs" id="3_kkqxr"]
+[ext_resource type="Script" path="res://scripts/Heart.cs" id="3_kkqxr"]
 
 [node name="Heart" type="TextureRect"]
 scale = Vector2(5, 5)

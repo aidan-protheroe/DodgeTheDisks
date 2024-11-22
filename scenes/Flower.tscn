@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://4e3thgkwp1gr"]
 
-[ext_resource type="Script" path="res://Flower.cs" id="1_kelg6"]
+[ext_resource type="Script" path="res://scripts/Flower.cs" id="1_kelg6"]
 [ext_resource type="Texture2D" uid="uid://digrqmp8med66" path="res://assets/flower.png" id="2_7d3lj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ija3m"]

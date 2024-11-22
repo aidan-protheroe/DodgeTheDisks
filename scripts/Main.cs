@@ -3,14 +3,32 @@ using System;
 
 public partial class Main : Node
 {
-	// Called when the node enters the scene tree for the first time.
+	private PackedScene PauseMenuScene;
+	private PauseMenu? pm = null;
+	
 	public override void _Ready()
 	{
+		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (Input.IsActionJustPressed("escape")) {
+			if (pm == null) {
+				pm = (PauseMenu)PauseMenuScene.Instantiate();
+				AddChild(pm);
+				GetTree().Paused = true;
+			}
+		}
+		
+		if (pm != null) {
+			if (!pm.Active) {
+				pm.QueueFree();
+				pm = null;
+				GetTree().Paused = false;
+			}
+		}
 	}
 }
 

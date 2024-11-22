@@ -1,0 +1,126 @@
+[gd_scene load_steps=13 format=3 uid="uid://3eqxdr6pq6fr"]
+
+[ext_resource type="Script" path="res://scripts/PauseMenu.cs" id="1_gvsrq"]
+[ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_su05x"]
+[ext_resource type="FontFile" uid="uid://dx8ul73lvu2d0" path="res://assets/fonts/m5x7.ttf" id="2_v7w3m"]
+[ext_resource type="Texture2D" uid="uid://b8wb7belnxt0h" path="res://assets/pointer/pointer.png" id="4_11sq1"]
+[ext_resource type="Texture2D" uid="uid://d0fibl87d4wjk" path="res://assets/pointer/pointer1.png" id="5_h7pb6"]
+[ext_resource type="Texture2D" uid="uid://b8uyuv1y8kwy6" path="res://assets/pointer/pointer2.png" id="6_fekr5"]
+[ext_resource type="Texture2D" uid="uid://c5feog2lkgf75" path="res://assets/pointer/pointer3.png" id="7_mkpd0"]
+[ext_resource type="Texture2D" uid="uid://uaxu7l7nru45" path="res://assets/pointer/pointer4.png" id="8_33wj4"]
+[ext_resource type="Texture2D" uid="uid://cuih7086s5qxi" path="res://assets/pointer/pointer5.png" id="9_ld6ux"]
+[ext_resource type="Texture2D" uid="uid://bcpkc5j170up5" path="res://assets/pointer/pointer6.png" id="10_v15ae"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_g1boc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4r1ku"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_11sq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h7pb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fekr5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mkpd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_33wj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ld6ux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v15ae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ld6ux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_33wj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mkpd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fekr5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h7pb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_11sq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_11sq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_11sq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_11sq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_11sq1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="PauseMenu" type="Control"]
+z_index = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gvsrq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 300.0
+offset_top = -18.0
+offset_right = 1294.0
+offset_bottom = 914.0
+texture = SubResource("CanvasTexture_g1boc")
+
+[node name="TileMap" type="TileMap" parent="."]
+process_mode = 2
+scale = Vector2(4, 4)
+tile_set = ExtResource("1_su05x")
+format = 2
+layer_0/tile_data = PackedInt32Array(131077, 1769476, 4, 196613, 1769476, 4, 262149, 1769476, 4, 327685, 1769476, 4, 393221, 1769476, 4, 458757, 1769476, 4, 524293, 1769476, 4, 589829, 1769476, 4, 655365, 1769476, 4, 196627, 1900548, 4, 262163, 1900548, 4, 327699, 1900548, 4, 393235, 1900548, 4, 458771, 1900548, 4, 524307, 1900548, 4, 589843, 1900548, 4, 655379, 1900548, 4, 5, 1769476, 3, 65541, 1769476, 4, 6, 1835012, 3, 7, 1835012, 3, 8, 1835012, 3, 9, 1835012, 3, 10, 1835012, 3, 11, 1835012, 3, 12, 1835012, 3, 13, 1835012, 3, 14, 1835012, 3, 15, 1835012, 3, 16, 1835012, 3, 17, 1835012, 3, 18, 1835012, 3, 19, 1900548, 3, 65555, 1900548, 4, 131091, 1900548, 4, 720901, 1769476, 4, 786437, 1769476, 4, 851973, 1769476, 5, 851974, 1835012, 5, 851975, 1835012, 5, 851976, 1835012, 5, 851977, 1835012, 5, 851978, 1835012, 5, 851979, 1835012, 5, 851980, 1835012, 5, 851981, 1835012, 5, 851982, 1835012, 5, 851983, 1835012, 5, 851984, 1835012, 5, 851985, 1835012, 5, 851986, 1835012, 5, 851987, 1900548, 5, 786451, 1900548, 4, 720915, 1900548, 4)
+
+[node name="ContinueLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 707.0
+offset_top = 382.0
+offset_right = 899.0
+offset_bottom = 433.0
+theme_override_fonts/font = ExtResource("2_v7w3m")
+theme_override_font_sizes/font_size = 64
+text = "CONTINUE"
+
+[node name="ExitLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 691.0
+offset_top = 473.0
+offset_right = 919.0
+offset_bottom = 524.0
+theme_override_fonts/font = ExtResource("2_v7w3m")
+theme_override_font_sizes/font_size = 64
+text = "MAIN MENU"
+
+[node name="Pointer" type="AnimatedSprite2D" parent="."]
+z_index = 3
+position = Vector2(674, 411)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4r1ku")
+frame_progress = 0.925835

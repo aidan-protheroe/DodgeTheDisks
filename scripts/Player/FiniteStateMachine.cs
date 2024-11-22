@@ -9,9 +9,7 @@ public partial class FiniteStateMachine : Node
 	public Dictionary<string, State> _states;
 	public State _currentState;
 	
-	
-	
-	public override void _Ready() //make a virtual method that this leads to that runs everythign so that you can override it in other fsm's, running the base class and adding on top
+	public override void _Ready() 
 	{
 		LoadStates();
 	}

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://brxr44rgnk0us" path="res://assets/DyingFlower/dyingFlower3.png" id="4_e4h17"]
 [ext_resource type="Texture2D" uid="uid://chenmd11ot1qo" path="res://assets/DyingFlower/dyingFlower4.png" id="5_guts5"]
 [ext_resource type="Texture2D" uid="uid://cnr5dndwskh0s" path="res://assets/DyingFlower/dyingFlower5.png" id="6_4lmx1"]
-[ext_resource type="Script" path="res://DyingFlower.cs" id="7_sm0if"]
+[ext_resource type="Script" path="res://scripts/DyingFlower.cs" id="7_sm0if"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04cpb"]
 animations = [{

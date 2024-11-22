@@ -228,8 +228,3 @@ public partial class Arena : Node2D
 		FlowerTimer.Start();
 	}
 }
-
-
-
-
-

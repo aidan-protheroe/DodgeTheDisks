@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ihnhrxgr54rp"]
 
 [ext_resource type="Texture2D" uid="uid://i6r6kcbgr5ak" path="res://assets/BloodParticle.png" id="1_jw1si"]
-[ext_resource type="Script" path="res://BloodSplatter.cs" id="2_eo0j1"]
+[ext_resource type="Script" path="res://scripts/BloodSplatter.cs" id="2_eo0j1"]
 
 [node name="BloodSplatter" type="CPUParticles2D"]
 amount = 100
