@@ -75,10 +75,9 @@ public partial class Main : Node
 	//animations for shop 
 	//when buying something replace it with another randomly selected item?
 	//store user data(highscore, points, etc)
-	//instead of using GetTree().Paused can use just use Arena.Paused()??? If so, do that in Main and that should fix ^
-	//should only get a max of 1 of each type of item during a shop selection, no heart x1 adn heart x3 in the same selection
+	//should only get a max of 1 of each type of item during a shop selection, no heart x1 and heart x3 in the same selection
 	//add an animation to disks for when they are destroyed(breaking apart into pieces??) and maybe a white flash over the entire screen for just a second when the player is hit
-	
+	//rare chance for heart to appear instead of flower
 
 //add flags for how many disks can spawn at the same time(1-4, maybe more)
 //Every 2 minutes a shop appears? for things run only

@@ -81,11 +81,11 @@ public partial class Shop : Control
 		
 		if (Input.IsActionJustPressed("enter")) {
 			if (PointerPosition != 3) { //add check to make sure player health/stamina isn't full before purchasing somehow
-				if (Arena.Player.Flowers >= ShopCards[PointerPosition].Item.Price && ShopCards[PointerPosition].FinishedAnimation) {
+				if (Arena.Player.Flowers >= ShopCards[PointerPosition].Item.Price && ShopCards[PointerPosition].FinishedPurchaseAnimation) {
 					Arena.Player.Flowers -= ShopCards[PointerPosition].Item.Price;
 					Arena.FlowerLabel.Text = "x" + Arena.Player.Flowers;
 					
-					ShopCards[PointerPosition].FinishedAnimation = false; //test
+					ShopCards[PointerPosition].FinishedPurchaseAnimation = false; //test
 					
 					var purchasedItem = ShopCards[PointerPosition].Item;
 					switch (purchasedItem.Effect) {
@@ -109,6 +109,8 @@ public partial class Shop : Control
 							break;
 					}
 
+				} else if (Arena.Player.Flowers < ShopCards[PointerPosition].Item.Price) {
+					ShopCards[PointerPosition].FinishedNoPurchaseAnimation = false;
 				}
 			} else {
 				Arena.ProcessMode = Node.ProcessModeEnum.Pausable;

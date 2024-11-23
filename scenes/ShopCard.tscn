@@ -18,6 +18,7 @@ offset_right = -1409.0
 offset_bottom = -713.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(95, 130)
 script = ExtResource("1_kjqq4")
 
 [node name="TextureRect" type="TextureRect" parent="."]
