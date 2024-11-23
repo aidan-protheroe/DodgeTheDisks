@@ -9,8 +9,9 @@
 [sub_resource type="CanvasTexture" id="CanvasTexture_s31ux"]
 
 [node name="Shop" type="Control"]
-process_mode = 2
+process_mode = 1
 z_index = 4
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

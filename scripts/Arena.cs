@@ -135,12 +135,13 @@ public partial class Arena : Node2D
 	}
 	
 	private void CheckTimeFlags() {
-		if ((int)TotalTime % 100 == 0 && !OpenedShop) {
+		if ((int)TotalTime % 10 == 0 && !OpenedShop) {
 			OpenedShop = true; //add open shop method
 			var s = (Shop)ShopScene.Instantiate();
 			UI.AddChild(s);
 			s.init(this);
-			GetTree().Paused = true;
+			//GetTree().Paused = true;
+			ProcessMode = Node.ProcessModeEnum.Disabled;
 			ShopNumber++;
 			IL = new ItemLoader();
 			AvailableItems = IL.LevelOneItems;
@@ -162,7 +163,7 @@ public partial class Arena : Node2D
 			GeneratedNewDisks = true;
 		}
 		
-		if ((int)TotalTime % 100 == 1) {
+		if ((int)TotalTime % 10 == 1) {
 			OpenedShop = false;
 		} else if ((int)TotalTime % 60 == 1) {
 			IncreasedDifficulty = false;

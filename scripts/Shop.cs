@@ -112,7 +112,8 @@ public partial class Shop : Control
 
 				}
 			} else {
-				GetTree().Paused = false;
+				//GetTree().Paused = false;
+				Arena.ProcessMode = Node.ProcessModeEnum.Pausable;
 				QueueFree();
 			}
 		}

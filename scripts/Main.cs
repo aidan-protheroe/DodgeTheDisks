@@ -5,10 +5,12 @@ public partial class Main : Node
 {
 	private PackedScene PauseMenuScene;
 	private PauseMenu? pm = null;
+	private CanvasLayer cv;
 	
 	public override void _Ready()
 	{
 		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
+		cv = GetNode<CanvasLayer>("CanvasLayer");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,7 +19,7 @@ public partial class Main : Node
 		if (Input.IsActionJustPressed("escape")) {
 			if (pm == null) {
 				pm = (PauseMenu)PauseMenuScene.Instantiate();
-				AddChild(pm);
+				cv.AddChild(pm);
 				GetTree().Paused = true;
 			}
 		}

@@ -10,6 +10,7 @@
 size = Vector2(13, 14)
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 motion_mode = 1
 script = ExtResource("1_18q7t")
 
