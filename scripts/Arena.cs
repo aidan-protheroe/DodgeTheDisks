@@ -142,7 +142,7 @@ public partial class Arena : Node2D
 	}
 	
 	private void CheckTimeFlags() {
-		if ((int)TotalTime % 100 == 0 && !OpenedShop) {
+		if ((int)TotalTime % 1 == 0 && !OpenedShop) {
 			OpenShop();
 		} else if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
 			Difficulty++;
@@ -167,7 +167,6 @@ public partial class Arena : Node2D
 		var s = (Shop)ShopScene.Instantiate();
 		UI.AddChild(s);
 		s.init(this);
-		//GetTree().Paused = true;
 		ProcessMode = Node.ProcessModeEnum.Disabled;
 		ShopNumber++;
 		IL = new ItemLoader();

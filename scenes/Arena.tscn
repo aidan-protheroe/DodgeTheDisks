@@ -164,7 +164,7 @@ theme_override_font_sizes/font_size = 120
 text = "x0"
 
 [node name="GameOverTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="DiskTimer" to="." method="OnDiskTimerTimeout"]

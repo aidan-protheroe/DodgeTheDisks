@@ -4,11 +4,14 @@ using System;
 public partial class Main : Node
 {
 	private Arena Arena;
+	
 	private PackedScene ArenaScene;
 	private PackedScene PauseMenuScene;
 	private PackedScene RestartMenuScene;
+	
 	private PauseMenu? pm = null;
 	private RestartMenu rm;
+	
 	private CanvasLayer cv;
 	
 	private bool GameOver = false;
@@ -16,7 +19,7 @@ public partial class Main : Node
 	
 	public override void _Ready()
 	{
-		Arena = GetNode<Arena>("Arena"); //make a new arena each time? using PackedScene
+		Arena = GetNode<Arena>("Arena"); 
 		ArenaScene = GD.Load<PackedScene>("res://scenes/Arena.tscn");
 		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 		RestartMenuScene = GD.Load<PackedScene>("res://scenes/RestartMenu.tscn");
@@ -63,7 +66,6 @@ public partial class Main : Node
 	}
 }
 
-//get shop and pause menu to get along
 //add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money
 //disable shop cards? or just let the player buy as many as they want?
 
@@ -72,7 +74,6 @@ public partial class Main : Node
 	//reduce prices overall, calculate average flowers per 100s for several games to determine correct range
 	//animations for shop 
 	//when buying something replace it with another randomly selected item?
-	//player death and restart menu
 	//store user data(highscore, points, etc)
 	//instead of using GetTree().Paused can use just use Arena.Paused()??? If so, do that in Main and that should fix ^
 	//should only get a max of 1 of each type of item during a shop selection, no heart x1 adn heart x3 in the same selection
