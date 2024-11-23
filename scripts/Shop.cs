@@ -13,8 +13,6 @@ public partial class Shop : Control
 	
 	public Array<ShopCard> ShopCards;
 	
-	public List<Item> PurchasedItems;
-	
 	public int PlayerFlowers;
 	
 	public AnimatedSprite2D Pointer;
@@ -24,11 +22,9 @@ public partial class Shop : Control
 	
 	public bool Finished = false;
 	
-	public void init(List<Item> AllItems, int playerFlowers, Arena arena) {
+	public void init(Arena arena) {
 		
 		Arena = arena;
-		
-		PlayerFlowers = playerFlowers;
 		
 		Pointer = GetNode<AnimatedSprite2D>("Pointer");
 		Pointer.Play();
@@ -41,12 +37,9 @@ public partial class Shop : Control
 		
 		rnd = new Random();
 		
-		PurchasedItems = new List<Item>();
-		
-		
 		for (int i = 0 ; i < 3 ; i++) {
-			var item = AllItems[rnd.Next(AllItems.Count)];
-			AllItems.Remove(item);
+			var item = Arena.AvailableItems[rnd.Next(Arena.AvailableItems.Count)];
+			Arena.AvailableItems.Remove(item);
 			ShopCards[i].Item = item;
 			ShopCards[i].PriceLabel.Text = "x" + item.Price;
 			ShopCards[i].ItemSprite.Texture = item.Sprite;
@@ -92,14 +85,15 @@ public partial class Shop : Control
 		
 		if (Input.IsActionJustPressed("enter")) {
 			if (PointerPosition != 3) { //add check to make sure player health/stamina isn't full before purchasing somehow
-				if (PlayerFlowers >= ShopCards[PointerPosition].Item.Price) {
-					PlayerFlowers -= ShopCards[PointerPosition].Item.Price;
-					Arena.FlowerLabel.Text = "x" + PlayerFlowers;
-					PurchasedItems.Add(ShopCards[PointerPosition].Item);
+				if (Arena.Player.Flowers >= ShopCards[PointerPosition].Item.Price) {
+					Arena.Player.Flowers -= ShopCards[PointerPosition].Item.Price;
+					Arena.FlowerLabel.Text = "x" + Arena.Player.Flowers;
 					
 					var purchasedItem = ShopCards[PointerPosition].Item;
 					if (purchasedItem.Effect == "Heal") {
 						Arena.HealPlayer((float)purchasedItem.Amount);
+					} else if (purchasedItem.Effect == "Stamina") {
+						Arena.RefillPlayerStamina((float)purchasedItem.Amount);
 					}
 				}
 			} else {

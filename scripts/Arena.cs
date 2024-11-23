@@ -139,13 +139,26 @@ public partial class Arena : Node2D
 	
 	private void CheckTimeFlags() {
 		if ((int)TotalTime % 10 == 0 && !OpenedShop) {
-			OpenedShop = true;
+			OpenedShop = true; //add open shop method
 			var s = (Shop)ShopScene.Instantiate();
 			UI.AddChild(s);
-			s.init(AvailableItems, Player.Flowers, this);
+			s.init(this);
 			GetTree().Paused = true;
+			ShopNumber++;
 			IL = new ItemLoader();
-			AvailableItems = IL.LevelOneItems; //swithc to include leve 2 and 3 for 2nd and 3rd shops
+			AvailableItems = IL.LevelOneItems;
+			if (ShopNumber >= 2) {
+				foreach (var i in IL.LevelTwoItems) {
+					AvailableItems.Add(i);
+				}
+			} 
+			if (ShopNumber >= 3) {
+				foreach (var i in IL.LevelThreeItems) {
+					AvailableItems.Add(i);
+				}
+			}
+			
+			 //swithc to include leve 2 and 3 for 2nd and 3rd shops
 			
 		}
 		if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
@@ -273,6 +286,7 @@ public partial class Arena : Node2D
 		if (Player.Stamina > Player.MaxStamina) {
 			Player.Stamina = Player.MaxStamina;
 		}
+		PlayerStaminaBar.Value = (Player.Stamina/Player.MaxStamina) * 100;
 	} 
 	
 	public void PlusPlayerHeart(int amount) {
