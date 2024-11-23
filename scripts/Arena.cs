@@ -19,6 +19,7 @@ public partial class Arena : Node2D
 	public Timer FlowerTimer;
 	public Label FlowerLabel;
 	public CanvasLayer UI;
+	private Timer GameOverTimer;
 	//scenes
 	public PackedScene DiskScene;
 	public PackedScene HeartScene;
@@ -41,6 +42,8 @@ public partial class Arena : Node2D
 	public bool GeneratedNewDisks = false;
 	public int FlowerSpawnRate = 10;
 	public int ShopNumber = 1;
+	public bool PlayerDead = false;
+	public bool GameOver = false;
 	
 	public override void _Ready()
 	{
@@ -82,6 +85,7 @@ public partial class Arena : Node2D
 		HeartContainer = GetNode<Node>("UI/HeartContainer");
 		HeartGrid = GetNode<GridContainer>("UI/HeartGrid");
 		FlowerLabel = GetNode<Label>("UI/FlowerLabel");
+		GameOverTimer = GetNode<Timer>("GameOverTimer");
 	}
 	
 	private void LoadScenes() {
@@ -111,7 +115,10 @@ public partial class Arena : Node2D
 
 	public override void _Process(double delta) //split into several methods
 	{
-		TotalTime += (float)delta;
+		if (!PlayerDead) {
+			TotalTime += (float)delta;
+		}
+		
 		
 		foreach (PathFollow2D path in Paths) {
 			path.Progress++;
@@ -135,25 +142,8 @@ public partial class Arena : Node2D
 	}
 	
 	private void CheckTimeFlags() {
-		if ((int)TotalTime % 10 == 0 && !OpenedShop) {
-			OpenedShop = true; //add open shop method
-			var s = (Shop)ShopScene.Instantiate();
-			UI.AddChild(s);
-			s.init(this);
-			//GetTree().Paused = true;
-			ProcessMode = Node.ProcessModeEnum.Disabled;
-			ShopNumber++;
-			IL = new ItemLoader();
-			AvailableItems = IL.LevelOneItems;
-			if (ShopNumber >= 2) {
-				foreach (var i in IL.LevelTwoItems) {
-					AvailableItems.Add(i);
-				}
-			} else if (ShopNumber >= 3) {
-				foreach (var i in IL.LevelThreeItems) {
-					AvailableItems.Add(i);
-				}
-			}
+		if ((int)TotalTime % 100 == 0 && !OpenedShop) {
+			OpenShop();
 		} else if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
 			Difficulty++;
 			IncreasedDifficulty = true;
@@ -163,12 +153,33 @@ public partial class Arena : Node2D
 			GeneratedNewDisks = true;
 		}
 		
-		if ((int)TotalTime % 10 == 1) {
+		if ((int)TotalTime % 100 == 1) {
 			OpenedShop = false;
 		} else if ((int)TotalTime % 60 == 1) {
 			IncreasedDifficulty = false;
 		} else if ((int)TotalTime % 20 == 1) {
 			GeneratedNewDisks = false;
+		}
+	}
+	
+	private void OpenShop() {
+		OpenedShop = true; 
+		var s = (Shop)ShopScene.Instantiate();
+		UI.AddChild(s);
+		s.init(this);
+		//GetTree().Paused = true;
+		ProcessMode = Node.ProcessModeEnum.Disabled;
+		ShopNumber++;
+		IL = new ItemLoader();
+		AvailableItems = IL.LevelOneItems;
+		if (ShopNumber >= 2) {
+			foreach (var i in IL.LevelTwoItems) {
+				AvailableItems.Add(i);
+			}
+		} else if (ShopNumber >= 3) {
+			foreach (var i in IL.LevelThreeItems) {
+				AvailableItems.Add(i);
+			}
 		}
 	}
 	
@@ -198,6 +209,17 @@ public partial class Arena : Node2D
 		HandleHearts();
 		
 		var bs = (BloodSplatter) BloodSplatterScene.Instantiate();
+		if (Player.Health <= 0) {
+			bs.InitialVelocityMin = 50;
+			bs.InitialVelocityMax = 500;
+			bs.Amount = 400;
+			bs.Lifetime = .5f;
+			Player.Visible = false;
+			Player.ProcessMode = Node.ProcessModeEnum.Disabled;
+			PlayerDead = true;
+			GameOverTimer.Start();
+		}
+		
 		AddChild(bs);
 		bs.Position = Player.Position;
 	}
@@ -317,4 +339,13 @@ public partial class Arena : Node2D
 	public void IncreaseFlowerSpawnRate(float amount) {
 		FlowerSpawnRate -= (int)amount;
 	}
+	
+	private void OnGameOverTimerTimeout()
+	{
+		//set highscore data
+		GameOver = true;
+	}
 }
+
+
+

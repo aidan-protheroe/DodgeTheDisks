@@ -3,34 +3,63 @@ using System;
 
 public partial class Main : Node
 {
+	private Arena Arena;
+	private PackedScene ArenaScene;
 	private PackedScene PauseMenuScene;
+	private PackedScene RestartMenuScene;
 	private PauseMenu? pm = null;
+	private RestartMenu rm;
 	private CanvasLayer cv;
+	
+	private bool GameOver = false;
+	private bool HandledGameOver = false;
 	
 	public override void _Ready()
 	{
+		Arena = GetNode<Arena>("Arena"); //make a new arena each time? using PackedScene
+		ArenaScene = GD.Load<PackedScene>("res://scenes/Arena.tscn");
 		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
+		RestartMenuScene = GD.Load<PackedScene>("res://scenes/RestartMenu.tscn");
 		cv = GetNode<CanvasLayer>("CanvasLayer");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("escape")) {
-			if (pm == null) {
-				pm = (PauseMenu)PauseMenuScene.Instantiate();
-				cv.AddChild(pm);
-				GetTree().Paused = true;
+		if (!GameOver) {
+			if (Input.IsActionJustPressed("escape")) {
+				if (pm == null) {
+					pm = (PauseMenu)PauseMenuScene.Instantiate();
+					cv.AddChild(pm);
+					GetTree().Paused = true;
+				}
+			}
+			
+			if (pm != null) {
+				if (!pm.Active) {
+					pm.QueueFree();
+					pm = null;
+					GetTree().Paused = false;
+				}
+			}
+			
+			GameOver = Arena.GameOver;
+		} else {
+			if (!HandledGameOver) {
+				HandledGameOver = true;
+				Arena.QueueFree();
+				rm = (RestartMenu) RestartMenuScene.Instantiate();
+				cv.AddChild(rm);
+			} else {
+				if (rm.NewGame) {
+					rm.QueueFree();
+					Arena = (Arena)ArenaScene.Instantiate();
+					AddChild(Arena);
+					GameOver = false;
+					HandledGameOver = false;
+				}
 			}
 		}
-		
-		if (pm != null) {
-			if (!pm.Active) {
-				pm.QueueFree();
-				pm = null;
-				GetTree().Paused = false;
-			}
-		}
+
 	}
 }
 
@@ -45,8 +74,6 @@ public partial class Main : Node
 	//when buying something replace it with another randomly selected item?
 	//player death and restart menu
 	//store user data(highscore, points, etc)
-	//fix z-sorting for (basically everything, but mainly) player and blood splatters
-	//pause menu and shop need to work together properly
 	//instead of using GetTree().Paused can use just use Arena.Paused()??? If so, do that in Main and that should fix ^
 	//should only get a max of 1 of each type of item during a shop selection, no heart x1 adn heart x3 in the same selection
 	//add an animation to disks for when they are destroyed(breaking apart into pieces??) and maybe a white flash over the entire screen for just a second when the player is hit

@@ -163,5 +163,10 @@ theme_override_fonts/font = ExtResource("4_he4f7")
 theme_override_font_sizes/font_size = 120
 text = "x0"
 
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="DiskTimer" to="." method="OnDiskTimerTimeout"]
 [connection signal="timeout" from="FlowerTimer" to="." method="OnFlowerTimerTimeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="OnGameOverTimerTimeout"]
