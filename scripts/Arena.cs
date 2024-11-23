@@ -18,12 +18,14 @@ public partial class Arena : Node2D
 	public GridContainer HeartGrid;
 	public Timer FlowerTimer;
 	public Label FlowerLabel;
+	public CanvasLayer UI;
 	//scenes
 	public PackedScene DiskScene;
 	public PackedScene HeartScene;
 	public PackedScene BloodSplatterScene;
 	public PackedScene FlowerScene;
 	public PackedScene DyingFlowerScene;
+	public PackedScene ShopScene;
 	//arrays
 	public Array<PathFollow2D> Paths;
 	public Array<Disk> Disks;
@@ -35,8 +37,10 @@ public partial class Arena : Node2D
 	public float TotalTime = 0f; 
 	public int Difficulty = 0;
 	public bool IncreasedDifficulty = false;
+	public bool OpenedShop = false;
 	public bool GeneratedNewDisks = false;
 	public int FlowerSpawnRate = 10;
+	public int ShopNumber = 1;
 	
 	public override void _Ready()
 	{
@@ -53,6 +57,8 @@ public partial class Arena : Node2D
 		
 		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
 		FlowerTimer.Start();
+		
+		FlowerLabel.Text = "x" + Player.Flowers;
 		
 		DiskTimer.WaitTime = 2f;
 		DiskTimer.Start();
@@ -72,6 +78,7 @@ public partial class Arena : Node2D
 		FlowerTimer = GetNode<Timer>("FlowerTimer");
 		DiskTimer = GetNode<Timer>("DiskTimer");
 		//UI
+		UI = GetNode<CanvasLayer>("UI");
 		TimeLabel = GetNode<Label>("UI/TimeLabel");
 		PlayerStaminaBar = GetNode<ProgressBar>("UI/PlayerStaminaBar");
 		HeartContainer = GetNode<Node>("UI/HeartContainer");
@@ -85,6 +92,7 @@ public partial class Arena : Node2D
 		FlowerScene = GD.Load<PackedScene>("res://scenes/Flower.tscn");
 		DyingFlowerScene = GD.Load<PackedScene>("res://scenes/DyingFlower.tscn");
 		DiskScene = GD.Load<PackedScene>("res://scenes/Disk.tscn");
+		ShopScene = GD.Load<PackedScene>("res://scenes/Shop.tscn");
 	}
 	
 	private void LoadArrays() {
@@ -114,7 +122,10 @@ public partial class Arena : Node2D
 		TimeLabel.Text = TotalTime.ToString("0.0");
 		PlayerStaminaBar.Value = (Player.Stamina/Player.MaxStamina) * 100;
 		
-		CheckTimeFlags();
+		if (TotalTime > 1) {
+			CheckTimeFlags();
+		}
+		
 		
 		if (Disks.Count > 0) {
 			HandleDisks();
@@ -127,6 +138,16 @@ public partial class Arena : Node2D
 	}
 	
 	private void CheckTimeFlags() {
+		if ((int)TotalTime % 10 == 0 && !OpenedShop) {
+			OpenedShop = true;
+			var s = (Shop)ShopScene.Instantiate();
+			UI.AddChild(s);
+			s.init(AvailableItems, Player.Flowers, this);
+			GetTree().Paused = true;
+			IL = new ItemLoader();
+			AvailableItems = IL.LevelOneItems; //swithc to include leve 2 and 3 for 2nd and 3rd shops
+			
+		}
 		if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
 			Difficulty++;
 			IncreasedDifficulty = true;
@@ -134,6 +155,10 @@ public partial class Arena : Node2D
 		} else if (((int)TotalTime % 20) == 0 && !GeneratedNewDisks) {
 			AvailableDisks = LG.Generate(Difficulty, 3);
 			GeneratedNewDisks = true;
+		}
+		
+		if ((int)TotalTime % 10 == 1) {
+			OpenedShop = false;
 		}
 		
 		if ((int)TotalTime % 60 == 1) {
@@ -234,7 +259,7 @@ public partial class Arena : Node2D
 	
 	
 	//UPGRADE METHODS:
-	public void HealPlayer(int amount) { //add amount = 0 heal all heartrs
+	public void HealPlayer(float amount) { //add amount = 0 heal all heartrs
 		for (int i = 0 ; i < amount; i++) {
 			if (Player.Health < Player.MaxHealth) {
 				Hearts[Player.Health].Toggle(1);

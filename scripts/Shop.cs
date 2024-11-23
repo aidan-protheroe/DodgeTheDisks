@@ -20,14 +20,18 @@ public partial class Shop : Control
 	public AnimatedSprite2D Pointer;
 	public int PointerPosition = 0;
 	
+	public Arena Arena;
+	
 	public bool Finished = false;
 	
-	public void init(List<Item> AllItems, int playerFlowers) {
+	public void init(List<Item> AllItems, int playerFlowers, Arena arena) {
+		
+		Arena = arena;
 		
 		PlayerFlowers = playerFlowers;
 		
 		Pointer = GetNode<AnimatedSprite2D>("Pointer");
-
+		Pointer.Play();
 		
 		ShopCards = new Array<ShopCard>() {
 			GetNode<ShopCard>("ShopCard"),
@@ -52,9 +56,9 @@ public partial class Shop : Control
 	public override void _Ready()
 	{
 		//temp
-		var i = new ItemLoader();
-		var x = i.LevelOneItems;
-		init(x, 10);
+		//var i = new ItemLoader();
+		//var x = i.LevelOneItems;
+		//init(x, 10);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,13 +91,21 @@ public partial class Shop : Control
 		}
 		
 		if (Input.IsActionJustPressed("enter")) {
-			if (PointerPosition != 3) {
-				if (PlayerFlowers > ShopCards[PointerPosition].Item.Price) {
+			if (PointerPosition != 3) { //add check to make sure player health/stamina isn't full before purchasing somehow
+				if (PlayerFlowers >= ShopCards[PointerPosition].Item.Price) {
 					PlayerFlowers -= ShopCards[PointerPosition].Item.Price;
+					Arena.FlowerLabel.Text = "x" + PlayerFlowers;
 					PurchasedItems.Add(ShopCards[PointerPosition].Item);
+					
+					var purchasedItem = ShopCards[PointerPosition].Item;
+					if (purchasedItem.Effect == "Heal") {
+						Arena.HealPlayer((float)purchasedItem.Amount);
+					}
 				}
 			} else {
-				Finished = true;
+				Arena.Player.Flowers = PlayerFlowers;
+				GetTree().Paused = false;
+				QueueFree();
 			}
 		}
 	}
