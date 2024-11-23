@@ -67,7 +67,7 @@ public partial class Shop : Control
 			PointerPosition = 0;
 		}
 		
-		switch (PointerPosition) {
+		switch (PointerPosition) { //in ortder to not hardcode this all you havbe to do is refrence the shopcards positions 
 			case 0: 
 				Pointer.Position = new Vector2(521, 496);
 				break;

@@ -309,8 +309,8 @@ public partial class Arena : Node2D
 	}
 	
 	public void PlusPlayerSpeed(float amount) {
-		Player.Speed *= amount;
-		Player.RunSpeed *= amount;
+		Player.Speed += 50f * amount;
+		Player.RunSpeed += 50f * amount;
 	}
 	
 	public void IncreaseFlowerSpawnRate(float amount) {

@@ -36,7 +36,19 @@ public partial class Main : Node
 //add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money
 //disable shop cards? or just let the player buy as many as they want?
 
-
+//after little playtest:
+	//add weight to items(heartx1 and staminax.5 more common than others)
+	//reduce prices overall, calculate average flowers per 100s for several games to determine correct range
+	//animations for shop 
+	//when buying something replace it with another randomly selected item?
+	//player death and restart menu
+	//store user data(highscore, points, etc)
+	//fix z-sorting for (basically everything, but mainly) player and blood splatters
+	//pause menu and shop need to work together properly
+	//instead of using GetTree().Paused can use just use Arena.Paused()??? If so, do that in Main and that should fix ^
+	//should only get a max of 1 of each type of item during a shop selection, no heart x1 adn heart x3 in the same selection
+	//add an animation to disks for when they are destroyed(breaking apart into pieces??) and maybe a white flash over the entire screen for just a second when the player is hit
+	
 
 //add flags for how many disks can spawn at the same time(1-4, maybe more)
 //Every 2 minutes a shop appears? for things run only
