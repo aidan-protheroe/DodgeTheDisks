@@ -135,7 +135,7 @@ public partial class Arena : Node2D
 	}
 	
 	private void CheckTimeFlags() {
-		if ((int)TotalTime % 10 == 0 && !OpenedShop) {
+		if ((int)TotalTime % 100 == 0 && !OpenedShop) {
 			OpenedShop = true; //add open shop method
 			var s = (Shop)ShopScene.Instantiate();
 			UI.AddChild(s);
@@ -148,17 +148,12 @@ public partial class Arena : Node2D
 				foreach (var i in IL.LevelTwoItems) {
 					AvailableItems.Add(i);
 				}
-			} 
-			if (ShopNumber >= 3) {
+			} else if (ShopNumber >= 3) {
 				foreach (var i in IL.LevelThreeItems) {
 					AvailableItems.Add(i);
 				}
 			}
-			
-			 //swithc to include leve 2 and 3 for 2nd and 3rd shops
-			
-		}
-		if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
+		} else if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
 			Difficulty++;
 			IncreasedDifficulty = true;
 			AvailableDisks = LG.Generate(Difficulty, 3);
@@ -167,11 +162,9 @@ public partial class Arena : Node2D
 			GeneratedNewDisks = true;
 		}
 		
-		if ((int)TotalTime % 10 == 1) {
+		if ((int)TotalTime % 100 == 1) {
 			OpenedShop = false;
-		}
-		
-		if ((int)TotalTime % 60 == 1) {
+		} else if ((int)TotalTime % 60 == 1) {
 			IncreasedDifficulty = false;
 		} else if ((int)TotalTime % 20 == 1) {
 			GeneratedNewDisks = false;

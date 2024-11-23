@@ -16,7 +16,7 @@ public partial class Player : CharacterBody2D
 
 	public string Facing;
 	
-	public int Flowers = 100;
+	public int Flowers = 0;
 
 	public override void _Ready() {
 		Sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");

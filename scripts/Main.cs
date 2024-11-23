@@ -33,7 +33,9 @@ public partial class Main : Node
 }
 
 //get shop and pause menu to get along
-//when adding a heart while they aren't all full it adds a new full one and keeps the old ones empty-- gotta fix
+//add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money
+//disable shop cards? or just let the player buy as many as they want?
+
 
 
 //add flags for how many disks can spawn at the same time(1-4, maybe more)
