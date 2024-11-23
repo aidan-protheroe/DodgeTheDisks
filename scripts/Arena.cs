@@ -35,12 +35,23 @@ public partial class Arena : Node2D
 	public Array<Flower> Flowers;
 	public List<Item> AvailableItems;
 	//data
-	public float TotalTime = 0f; 
+	[Export]
+	float ShopTime = 100f;
+	[Export]
+	float NewDisksTime = 20f;
+	[Export]
+	float DifficultyIncreaseTime = 60f;
+	[Export]
 	public int Difficulty = 0;
+	[Export]
+	public int FlowerSpawnRate = 7;
+	[Export]
+	public int MinFlowerSpawnRate = 3;
+	
+	public float TotalTime = 0f; 
 	public bool IncreasedDifficulty = false;
 	public bool OpenedShop = false;
 	public bool GeneratedNewDisks = false;
-	public int FlowerSpawnRate = 10;
 	public int ShopNumber = 1;
 	public bool PlayerDead = false;
 	public bool GameOver = false;
@@ -69,6 +80,9 @@ public partial class Arena : Node2D
 			Hearts.Add(h);
 			HeartGrid.AddChild(h);
 		}
+		
+		var sizeY = Math.Ceiling((double)Hearts.Count / 3);
+		HeartGrid.Size = new Vector2(HeartGrid.Size.X, (float)((55 * sizeY)));
 		
 		AvailableDisks = LG.Generate(0, 3);
 	}
@@ -142,22 +156,22 @@ public partial class Arena : Node2D
 	}
 	
 	private void CheckTimeFlags() {
-		if ((int)TotalTime % 1 == 0 && !OpenedShop) {
+		if ((int)TotalTime % ShopTime == 0 && !OpenedShop) {
 			OpenShop();
-		} else if ((int)TotalTime % 60 == 0 && !IncreasedDifficulty) {
+		} else if ((int)TotalTime % DifficultyIncreaseTime == 0 && !IncreasedDifficulty) {
 			Difficulty++;
 			IncreasedDifficulty = true;
 			AvailableDisks = LG.Generate(Difficulty, 3);
-		} else if (((int)TotalTime % 20) == 0 && !GeneratedNewDisks) {
+		} else if (((int)TotalTime % NewDisksTime) == 0 && !GeneratedNewDisks) {
 			AvailableDisks = LG.Generate(Difficulty, 3);
 			GeneratedNewDisks = true;
 		}
 		
-		if ((int)TotalTime % 100 == 1) {
+		if ((int)TotalTime % ShopTime == 1) {
 			OpenedShop = false;
-		} else if ((int)TotalTime % 60 == 1) {
+		} else if ((int)TotalTime % DifficultyIncreaseTime == 1) {
 			IncreasedDifficulty = false;
-		} else if ((int)TotalTime % 20 == 1) {
+		} else if ((int)TotalTime % NewDisksTime == 1) {
 			GeneratedNewDisks = false;
 		}
 	}
@@ -290,7 +304,7 @@ public partial class Arena : Node2D
 		Flowers.Add(flower);
 		AddChild(flower);
 		
-		FlowerTimer.WaitTime = (float)(rnd.Next(FlowerSpawnRate) + 3);
+		FlowerTimer.WaitTime = (float)(rnd.Next(FlowerSpawnRate) + MinFlowerSpawnRate);
 		FlowerTimer.Start();
 	}
 	
@@ -336,7 +350,13 @@ public partial class Arena : Node2D
 	}
 	
 	public void IncreaseFlowerSpawnRate(float amount) {
-		FlowerSpawnRate -= (int)amount;
+		if (FlowerSpawnRate <= 0 && MinFlowerSpawnRate > 1) {
+			MinFlowerSpawnRate--;
+		} else if (FlowerSpawnRate > 0) {
+			FlowerSpawnRate -= (int)amount;
+		}
+		
+
 	}
 	
 	private void OnGameOverTimerTimeout()

@@ -67,27 +67,17 @@ public partial class Shop : Control
 			PointerPosition = 0;
 		}
 		
-		//i dont think you even need the switch anymore, just use a one liner here basically
-		//switch (PointerPosition) { //in ortder to not hardcode this all you havbe to do is refrence the shopcards positions 
-			//case 0: 
-				//Pointer.Position = new Vector2(ShopCards[0].Position.X + (ShopCards[0].Size.X / 2), ShopCards[0].Position.Y + ShopCards[0].Size.Y + 25);
-				//break;
-			//case 1:
-				//Pointer.Position = new Vector2(788, ShopCards[1].Position.Y + ShopCards[1].Size.Y + 25);
-				//break;
-			//case 2:
-				//Pointer.Position = new Vector2(1095, ShopCards[2].Position.Y + ShopCards[2].Size.Y + 25);
-				//break;
-			//case 3:
-				//Pointer.Position = new Vector2(798, ExitLabel.Position.Y + ExitLabel.Size.Y + 25);
-				//break;
-		//}
 		
+		var posX = 0f;
+		var posY = 0f;
 		if (PointerPosition != 3) {
-			Pointer.Position = new Vector2(ShopCards[PointerPosition].Position.X + (ShopCards[PointerPosition].Size.X / 2), ShopCards[PointerPosition].Position.Y + ShopCards[PointerPosition].Size.Y + 25);
+			posX = (ShopCards[PointerPosition].Position.X + (ShopCards[PointerPosition].Size.X / 2)); 
+			posY = (ShopCards[PointerPosition].Position.Y + ShopCards[PointerPosition].Size.Y + 40);
 		} else {
-			Pointer.Position = new Vector2(798, ExitLabel.Position.Y + ExitLabel.Size.Y + 25);
+			posX = 798; 
+			posY = (ExitLabel.Position.Y + ExitLabel.Size.Y + 40);
 		}
+		Pointer.Position = new Vector2(posX, posY);
 		
 		if (Input.IsActionJustPressed("enter")) {
 			if (PointerPosition != 3) { //add check to make sure player health/stamina isn't full before purchasing somehow
