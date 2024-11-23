@@ -35,7 +35,7 @@ offset_bottom = 157.015
 texture = SubResource("CanvasTexture_nfgci")
 
 [node name="FlowerSprite" type="Sprite2D" parent="."]
-position = Vector2(64.975, 174.625)
+position = Vector2(64.975, 181.625)
 scale = Vector2(2, 2)
 texture = ExtResource("1_fl87k")
 

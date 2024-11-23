@@ -37,7 +37,7 @@ bg_color = Color(1, 1, 1, 1)
 process_mode = 1
 script = ExtResource("1_nkdgo")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="bg" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
 offset_right = 1603.0
 offset_bottom = 899.0
@@ -75,6 +75,8 @@ rotation = 3.14159
 progress = 3399.76
 
 [node name="DiskTimer" type="Timer" parent="."]
+
+[node name="FlowerTimer" type="Timer" parent="."]
 
 [node name="VisibleBorders" type="Node" parent="."]
 
@@ -160,8 +162,6 @@ offset_bottom = 875.0
 theme_override_fonts/font = ExtResource("4_he4f7")
 theme_override_font_sizes/font_size = 120
 text = "x0"
-
-[node name="FlowerTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="DiskTimer" to="." method="OnDiskTimerTimeout"]
 [connection signal="timeout" from="FlowerTimer" to="." method="OnFlowerTimerTimeout"]

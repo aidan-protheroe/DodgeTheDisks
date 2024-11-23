@@ -35,7 +35,7 @@ public class ItemLoader {
 			},
 			new Item() {
 				Name = "PlusFlowers",
-				Sprite = null,
+				Sprite = GD.Load<Texture2D>("res://assets/upgrades/plusFLowers.png"),
 				Price = 12,
 				Effect = "FlowerSpawnRate",
 				Amount = 1f
@@ -65,7 +65,7 @@ public class ItemLoader {
 			},
 			new Item() {
 				Name = "PlusSpeed",
-				Sprite = null,
+				Sprite = GD.Load<Texture2D>("res://assets/upgrades/plusSpeed.png"),
 				Price = 20,
 				Effect = "PlusSpeed",
 				Amount = 1.25f

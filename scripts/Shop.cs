@@ -54,7 +54,6 @@ public partial class Shop : Control
 		//init(x, 10);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("left")) {
@@ -90,14 +89,29 @@ public partial class Shop : Control
 					Arena.FlowerLabel.Text = "x" + Arena.Player.Flowers;
 					
 					var purchasedItem = ShopCards[PointerPosition].Item;
-					if (purchasedItem.Effect == "Heal") {
-						Arena.HealPlayer((float)purchasedItem.Amount);
-					} else if (purchasedItem.Effect == "Stamina") {
-						Arena.RefillPlayerStamina((float)purchasedItem.Amount);
+					switch (purchasedItem.Effect) {
+						case "Heal":
+							Arena.HealPlayer((float)purchasedItem.Amount);
+							break;
+						case "Stamina":
+							Arena.RefillPlayerStamina((float)purchasedItem.Amount);
+							break;
+						case "FlowerSpawnRate":
+							Arena.IncreaseFlowerSpawnRate((float)purchasedItem.Amount);
+							break;
+						case "PlusHeart":
+							Arena.PlusPlayerHeart((float)purchasedItem.Amount);
+							break;
+						case "PlusStamina":
+							Arena.PlusPlayerStamina((float)purchasedItem.Amount);
+							break;
+						case "PlusSpeed":
+							Arena.PlusPlayerSpeed((float)purchasedItem.Amount);
+							break;
 					}
+
 				}
 			} else {
-				Arena.Player.Flowers = PlayerFlowers;
 				GetTree().Paused = false;
 				QueueFree();
 			}

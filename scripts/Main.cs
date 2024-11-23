@@ -32,6 +32,9 @@ public partial class Main : Node
 	}
 }
 
+//get shop and pause menu to get along
+//when adding a heart while they aren't all full it adds a new full one and keeps the old ones empty-- gotta fix
+
 
 //add flags for how many disks can spawn at the same time(1-4, maybe more)
 //Every 2 minutes a shop appears? for things run only

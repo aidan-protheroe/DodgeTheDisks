@@ -53,8 +53,6 @@ public partial class Arena : Node2D
 		LoadScenes();
 		LoadArrays();
 		
-
-		
 		FlowerTimer.WaitTime = (float)(rnd.Next(10) + 3);
 		FlowerTimer.Start();
 		
@@ -125,7 +123,6 @@ public partial class Arena : Node2D
 		if (TotalTime > 1) {
 			CheckTimeFlags();
 		}
-		
 		
 		if (Disks.Count > 0) {
 			HandleDisks();
@@ -204,7 +201,7 @@ public partial class Arena : Node2D
 	
 	private void PlayerHit() { //add death conditions
 		Player.Health--;
-		Hearts[Player.Health].Toggle(0);
+		HandleHearts();
 		
 		var bs = (BloodSplatter) BloodSplatterScene.Instantiate();
 		AddChild(bs);
@@ -236,6 +233,18 @@ public partial class Arena : Node2D
 		
 		foreach (Flower f in FlowersToRemove) {
 			Flowers.Remove(f);
+		}
+	}
+	
+	private void HandleHearts() {
+		var PlayerHealth = Player.Health;
+		foreach (Heart h in Hearts) {
+			if (PlayerHealth > 0) {
+				h.Toggle(1);
+			} else {
+				h.Toggle(0);
+			}
+			PlayerHealth--;
 		}
 	}
 
@@ -275,8 +284,8 @@ public partial class Arena : Node2D
 	public void HealPlayer(float amount) { //add amount = 0 heal all heartrs
 		for (int i = 0 ; i < amount; i++) {
 			if (Player.Health < Player.MaxHealth) {
-				Hearts[Player.Health].Toggle(1);
 				Player.Health++;
+				HandleHearts();
 			}
 		}
 	}
@@ -289,13 +298,13 @@ public partial class Arena : Node2D
 		PlayerStaminaBar.Value = (Player.Stamina/Player.MaxStamina) * 100;
 	} 
 	
-	public void PlusPlayerHeart(int amount) {
+	public void PlusPlayerHeart(float amount) {
 		for (int i = 0 ; i < amount ; i++) {
 			Player.MaxHealth++;
-			Player.Health++;
 			var h = (Heart) HeartScene.Instantiate();
 			Hearts.Add(h);
 			HeartGrid.AddChild(h);
+			HealPlayer(1);
 		}
 		var sizeY = Math.Ceiling((double)Hearts.Count / 3);
 		HeartGrid.Size = new Vector2(HeartGrid.Size.X, (float)((55 * sizeY)));
@@ -311,7 +320,7 @@ public partial class Arena : Node2D
 		Player.RunSpeed *= amount;
 	}
 	
-	public void IncreaseFlowerSpawnRate(int amount) {
-		FlowerSpawnRate -= amount;
+	public void IncreaseFlowerSpawnRate(float amount) {
+		FlowerSpawnRate -= (int)amount;
 	}
 }
