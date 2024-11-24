@@ -5,10 +5,10 @@ using Godot.Collections;
 
 public partial class Menu : Control {
 	private AnimatedSprite2D Pointer;
-	private Array<Label> Labels;
+	public Array<Label> Labels;
     private int PointerPosition = 0;
 
-    private string MovementStyle;
+    public string MovementStyle;
     private string BackwardsMovement;
     private string ForwardsMovement;
 

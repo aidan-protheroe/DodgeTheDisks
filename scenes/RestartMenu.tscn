@@ -85,4 +85,4 @@ modulate = Color(0, 0, 0, 1)
 position = Vector2(678, 449)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("3_4upuw")
-frame_progress = 0.703436
+frame_progress = 0.351366

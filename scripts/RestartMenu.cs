@@ -1,42 +1,23 @@
 using Godot;
 using System;
 
-public partial class RestartMenu : Control
+public partial class RestartMenu : Menu
 {
-	private Label RestartLabel;
-	private Label MainMenuLabel;
-	private AnimatedSprite2D Pointer;
-	
 	public bool NewGame = false;
 
-	private string CurrentPosition = "RestartLabel";
 	public override void _Ready()
 	{
-		RestartLabel = GetNode<Label>("RestartLabel");
-		MainMenuLabel = GetNode<Label>("MainMenuLabel");
-		Pointer = GetNode<AnimatedSprite2D>("Pointer");
-
-		Pointer.Play();
+		MovementStyle = "vertical";
+		base._Ready();
+		Labels.Add(GetNode<Label>("RestartLabel"));
+		Labels.Add(GetNode<Label>("MainMenuLabel"));
 	}
 
-	public override void _Process(double delta)
-	{
-		if (Input.IsActionJustPressed("up") || Input.IsActionJustPressed("down")) {
-			if (CurrentPosition == "RestartLabel") {
-				CurrentPosition = "MainMenuLabel";
-				Pointer.Position = new Vector2(MainMenuLabel.Position.X - 30, MainMenuLabel.Position.Y + 30);
-			} else {
-				CurrentPosition = "RestartLabel";
-				Pointer.Position = new Vector2(RestartLabel.Position.X - 30, RestartLabel.Position.Y + 30);
-			}
-		}
+	public void Label0Selected() {
+		NewGame = true;
+	}
 
-		if (Input.IsActionJustPressed("enter")) {
-			if (CurrentPosition == "RestartLabel") {
-				NewGame = true;
-			} else if (CurrentPosition == "MainMenuLabel") {
-				GetTree().Quit();
-			}
-		} 
+	public void Label1Selected() {
+		GetTree().Quit();
 	}
 }
