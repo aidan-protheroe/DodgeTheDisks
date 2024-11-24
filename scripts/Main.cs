@@ -17,7 +17,7 @@ public partial class Main : Node
 	
 	private CanvasLayer cv;
 	
-	private bool GameOver = false;
+	private bool PlayingGame = true;
 	private bool HandledGameOver = false;
 	
 	public UserData UserData;
@@ -32,14 +32,12 @@ public partial class Main : Node
 		cv = GetNode<CanvasLayer>("CanvasLayer");
 		
 		LoadUserData();
-
-
 	}
 
 	public override void _Process(double delta)
 	{
-		if (!GameOver) {
-			if (Input.IsActionJustPressed("escape")) {
+		if (PlayingGame) {
+			if (Input.IsActionJustPressed("escape")) { //pause game
 				if (pm == null) {
 					pm = (PauseMenu)PauseMenuScene.Instantiate();
 					cv.AddChild(pm);
@@ -47,7 +45,7 @@ public partial class Main : Node
 				}
 			}
 			
-			if (pm != null) {
+			if (pm != null) { //unpause game
 				if (!pm.Active) {
 					pm.QueueFree();
 					pm = null;
@@ -55,8 +53,9 @@ public partial class Main : Node
 				}
 			}
 			
-			GameOver = Arena.GameOver;
-		} else {
+			PlayingGame = !Arena.GameOver;
+			
+		} else if (!PlayingGame) {
 			if (!HandledGameOver) {
 				HandledGameOver = true;
 				var Score = Arena.TotalTime;
@@ -68,12 +67,12 @@ public partial class Main : Node
 				Arena.QueueFree();
 				rm = (RestartMenu) RestartMenuScene.Instantiate(); //show score on restart screen (and if it's a new highscore highlight that)
 				cv.AddChild(rm);
-			} else {
+			} else if (HandledGameOver) {
 				if (rm.NewGame) {
 					rm.QueueFree();
 					Arena = (Arena)ArenaScene.Instantiate();
 					AddChild(Arena);
-					GameOver = false;
+					PlayingGame = true;
 					HandledGameOver = false;
 				}
 			}
@@ -133,7 +132,6 @@ public class UserData {
 //add several exports(maybe in a autoload) for debugging, like game speed, etc. Eventauly add a debug menu in-game maybe?
 
 //remove all flowers when player gets hit, just like disks?
-//rare chance for a chest to spawn, giving a free item?
 //either have flower collisions work like disk collision or vice versa
 
 //UPGRADE IDEAS(apply points to upgrade, permanent):
@@ -142,12 +140,8 @@ public class UserData {
 //Speed+
 
 //PASSIVE ITEM IDEAS(acquired inside arena):
-//increase flower spawn rate
 //increase flower lifetime
 //decrease disk spawn rate or size or speed
-//Health+
-//Stamina+
-//Speed+
 //survive death once
 
 //ACTIVE ITEM IDEAS(acquired and used inside arena, can be used on purhcase or 1 can be held):

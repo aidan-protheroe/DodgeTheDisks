@@ -355,8 +355,6 @@ public partial class Arena : Node2D
 		} else if (FlowerSpawnRate > 0) {
 			FlowerSpawnRate -= (int)amount;
 		}
-		
-
 	}
 	
 	private void OnGameOverTimerTimeout()
