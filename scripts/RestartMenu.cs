@@ -3,7 +3,9 @@ using System;
 
 public partial class RestartMenu : Menu
 {
-	public bool NewGame = false;
+	public bool SelectedOption = false;
+	
+	public string Option;
 
 	public override void _Ready()
 	{
@@ -14,10 +16,12 @@ public partial class RestartMenu : Menu
 	}
 
 	public void Label0Selected() {
-		NewGame = true;
+		SelectedOption = true;
+		Option = "NewGame";
 	}
 
 	public void Label1Selected() {
-		GetTree().Quit();
+		SelectedOption = true;
+		Option = "MainMenu";
 	}
 }

@@ -6,20 +6,20 @@ using System.IO;
 
 public partial class Main : Node
 {
-	private Arena Arena;
-	
 	private PackedScene MainMenuScene;
 	private PackedScene ArenaScene;
 	private PackedScene PauseMenuScene;
 	private PackedScene RestartMenuScene;
 	
-	private MainMenu mm;
+	private MainMenu? mm = null;
+	private Arena? Arena = null;
 	private PauseMenu? pm = null;
 	private RestartMenu rm;
 	
 	private CanvasLayer cv;
 	
-	private bool PlayingGame = true;
+	private bool OnMainMenu = true;
+	private bool PlayingGame = false;
 	private bool HandledGameOver = false;
 	
 	public UserData UserData;
@@ -28,7 +28,6 @@ public partial class Main : Node
 	public override void _Ready()
 	{
 		MainMenuScene = GD.Load<PackedScene>("res://scenes/MainMenu.tscn");
-		Arena = GetNode<Arena>("Arena"); 
 		ArenaScene = GD.Load<PackedScene>("res://scenes/Arena.tscn");
 		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 		RestartMenuScene = GD.Load<PackedScene>("res://scenes/RestartMenu.tscn");
@@ -39,25 +38,52 @@ public partial class Main : Node
 
 	public override void _Process(double delta)
 	{
-		if (PlayingGame) {
-			if (Input.IsActionJustPressed("escape")) { //pause game
-				if (pm == null) {
-					pm = (PauseMenu)PauseMenuScene.Instantiate();
-					cv.AddChild(pm);
-					GetTree().Paused = true;
+		if (OnMainMenu) {
+			if (mm == null) {
+				mm = (MainMenu) MainMenuScene.Instantiate();
+				AddChild(mm);
+				mm.HighScoreLabel.Text = "HighScore: " + UserData.HighScore.ToString("0.0");
+				mm.PointsLabel.Text = "Points: " + UserData.Points.ToString();
+			} else {
+				if (mm.StartGame) {
+					OnMainMenu = false;
+					mm.QueueFree();
+					mm = null;
+					PlayingGame = true;
 				}
 			}
-			
-			if (pm != null) { //unpause game
-				if (!pm.Active) {
-					pm.QueueFree();
-					pm = null;
-					GetTree().Paused = false;
+		} else if (PlayingGame) {
+			if (Arena == null) {
+				Arena = (Arena)ArenaScene.Instantiate();
+				AddChild(Arena);
+				HandledGameOver = false;
+			} else {
+				if (Input.IsActionJustPressed("escape")) { //pause game
+					if (pm == null) {
+						pm = (PauseMenu)PauseMenuScene.Instantiate();
+						cv.AddChild(pm);
+						GetTree().Paused = true;
+					}
 				}
+				
+				if (pm != null) { //unpause game -- move outside of this block?
+					if (!pm.Active) {
+						pm.QueueFree();
+						pm = null;
+						GetTree().Paused = false;
+					} else if (pm.GoToMainMenu) {
+						pm.QueueFree();
+						pm = null;
+						GetTree().Paused = false;
+						Arena.QueueFree();
+						Arena = null;
+						OnMainMenu = true;
+						return;
+					}
+				}
+				
+				PlayingGame = !Arena.GameOver;
 			}
-			
-			PlayingGame = !Arena.GameOver;
-			
 		} else if (!PlayingGame) {
 			if (!HandledGameOver) {
 				HandledGameOver = true;
@@ -68,19 +94,30 @@ public partial class Main : Node
 				UserData.Points += (int)Score;
 				SaveUserData();
 				Arena.QueueFree();
+				Arena = null;
 				rm = (RestartMenu) RestartMenuScene.Instantiate(); //show score on restart screen (and if it's a new highscore highlight that)
 				cv.AddChild(rm);
+				
 			} else if (HandledGameOver) {
-				if (rm.NewGame) {
+				if (rm.SelectedOption) {
+					var Option = rm.Option;
 					rm.QueueFree();
-					Arena = (Arena)ArenaScene.Instantiate();
-					AddChild(Arena);
-					PlayingGame = true;
-					HandledGameOver = false;
+					if (Option == "NewGame") {
+						Arena = (Arena)ArenaScene.Instantiate();
+						AddChild(Arena);
+						PlayingGame = true;
+						HandledGameOver = false;
+					} else if (Option == "MainMenu") {
+						OnMainMenu = true;
+						HandledGameOver = false;
+					}
 				}
 			}
 		}
-
+	}
+	
+	private void ReturnToMainMenu() {
+		
 	}
 	
 	private void LoadUserData() {

@@ -16,6 +16,9 @@ public partial class MainMenu : Menu
 		Labels.Add(GetNode<Label>("StartLabel"));
 		Labels.Add(GetNode<Label>("UpgradeLabel"));
 		Labels.Add(GetNode<Label>("QuitLabel"));
+		
+		PointsLabel = GetNode<Label>("PointsLabel");
+		HighScoreLabel = GetNode<Label>("HighScoreLabel");
 	}
 	
 	public override void _Process(double delta) {

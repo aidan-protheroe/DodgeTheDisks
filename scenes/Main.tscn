@@ -1,13 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwmhunjykdg2f"]
+[gd_scene load_steps=2 format=3 uid="uid://cwmhunjykdg2f"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_srl3l"]
-[ext_resource type="PackedScene" uid="uid://cibcdmyfobf6i" path="res://scenes/Arena.tscn" id="2_2hgf4"]
 
 [node name="Main" type="Node"]
 process_mode = 3
 script = ExtResource("1_srl3l")
-
-[node name="Arena" parent="." instance=ExtResource("2_2hgf4")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2

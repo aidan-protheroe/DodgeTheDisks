@@ -3,7 +3,11 @@ using System;
 
 public partial class PauseMenu : Menu
 {
+	public bool SelectedOption = false;
+	
 	public bool Active = true;
+	public bool GoToMainMenu = false;
+	
 	public override void _Ready()
 	{
 		MovementStyle = "vertical";
@@ -20,10 +24,12 @@ public partial class PauseMenu : Menu
 	}
 
 	public void Label0Selected() {
-		Active = false;
+		SelectedOption = true;
+		Active = false; //use a string Option instead
 	}
 
 	public void Label1Selected() {
-		GetTree().Quit();
+		SelectedOption = true;
+		GoToMainMenu = true; //use a string Option instead
 	}
 }
