@@ -62,8 +62,9 @@ public partial class Main : Node
 				var Score = Arena.TotalTime;
 				if (Score > UserData.HighScore) {
 					UserData.HighScore = Score;
-					SaveUserData();
 				}
+				UserData.Points += (int)Score;
+				SaveUserData();
 				Arena.QueueFree();
 				rm = (RestartMenu) RestartMenuScene.Instantiate(); //show score on restart screen (and if it's a new highscore highlight that)
 				cv.AddChild(rm);
@@ -94,6 +95,9 @@ public partial class Main : Node
 public class UserData {
 	public float HighScore { get; set; }
 	public int Points { get; set; }
+	public int HealthUpgrades { get; set; }
+	public int StaminaUpgrades { get; set; }
+	public int SpeedUpgrades { get; set; }
 }
 
 //add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money

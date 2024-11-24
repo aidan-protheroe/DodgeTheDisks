@@ -219,6 +219,7 @@ public partial class Arena : Node2D
 	private void PlayerHit() { //add death conditions
 		Player.Health--;
 		HandleHearts();
+		Player.HurtAnimation = true;
 		
 		var bs = (BloodSplatter) BloodSplatterScene.Instantiate();
 		if (Player.Health <= 0) {
