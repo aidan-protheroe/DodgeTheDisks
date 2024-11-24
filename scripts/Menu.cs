@@ -56,3 +56,5 @@ public partial class Menu : Control {
         }
 	}
 }
+
+//need to adfd unified way to exit menu, wether the menu sends a signal or the main class controls it
