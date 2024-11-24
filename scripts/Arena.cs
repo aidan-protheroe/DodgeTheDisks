@@ -92,6 +92,7 @@ public partial class Arena : Node2D
 		//Timers
 		FlowerTimer = GetNode<Timer>("FlowerTimer");
 		DiskTimer = GetNode<Timer>("DiskTimer");
+		GameOverTimer = GetNode<Timer>("GameOverTimer");
 		//UI
 		UI = GetNode<CanvasLayer>("UI");
 		TimeLabel = GetNode<Label>("UI/TimeLabel");
@@ -99,7 +100,6 @@ public partial class Arena : Node2D
 		HeartContainer = GetNode<Node>("UI/HeartContainer");
 		HeartGrid = GetNode<GridContainer>("UI/HeartGrid");
 		FlowerLabel = GetNode<Label>("UI/FlowerLabel");
-		GameOverTimer = GetNode<Timer>("GameOverTimer");
 	}
 	
 	private void LoadScenes() {
@@ -132,7 +132,6 @@ public partial class Arena : Node2D
 		if (!PlayerDead) {
 			TotalTime += (float)delta;
 		}
-		
 		
 		foreach (PathFollow2D path in Paths) {
 			path.Progress++;
@@ -256,12 +255,12 @@ public partial class Arena : Node2D
 					FlowerLabel.Text = "x" + Player.Flowers; //move this elsewhere, make flower collision work like disk 
 				}
 				FlowersToRemove.Add(f);
-				f.QueueFree();
 			}
 		}
 		
 		foreach (Flower f in FlowersToRemove) {
 			Flowers.Remove(f);
+			f.QueueFree();
 		}
 	}
 	

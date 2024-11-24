@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://df7a4ggjs6c6f"]
+[gd_scene load_steps=6 format=3 uid="uid://df7a4ggjs6c6f"]
 
 [ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_1720b"]
 [ext_resource type="Script" path="res://scripts/RestartMenu.cs" id="1_tjkb1"]
 [ext_resource type="FontFile" uid="uid://dx8ul73lvu2d0" path="res://assets/fonts/m5x7.ttf" id="2_1c5es"]
 [ext_resource type="SpriteFrames" uid="uid://bo7qgdn0ss57t" path="res://assets/Resources/Pointer.tres" id="3_4upuw"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_i3fkp"]
 
 [node name="RestartMenu" type="Control"]
 layout_mode = 3
@@ -15,9 +17,11 @@ grow_vertical = 2
 script = ExtResource("1_tjkb1")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1599.0
+offset_bottom = 901.0
+texture = SubResource("CanvasTexture_i3fkp")
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
@@ -81,4 +85,4 @@ modulate = Color(0, 0, 0, 1)
 position = Vector2(678, 449)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("3_4upuw")
-frame_progress = 0.900905
+frame_progress = 0.703436

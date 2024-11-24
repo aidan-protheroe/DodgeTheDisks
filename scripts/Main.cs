@@ -1,5 +1,8 @@
 using Godot;
 using System;
+using System.Text.Json;
+using System.Collections.Generic;
+using System.IO;
 
 public partial class Main : Node
 {
@@ -17,6 +20,8 @@ public partial class Main : Node
 	private bool GameOver = false;
 	private bool HandledGameOver = false;
 	
+	private Dictionary<string, int> UserData;
+	
 	public override void _Ready()
 	{
 		Arena = GetNode<Arena>("Arena"); 
@@ -24,6 +29,12 @@ public partial class Main : Node
 		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 		RestartMenuScene = GD.Load<PackedScene>("res://scenes/RestartMenu.tscn");
 		cv = GetNode<CanvasLayer>("CanvasLayer");
+		
+		//test
+		UserData = new Dictionary<string, int> () {{"HighScore", 100},{"Points", 200}};
+		string FileName = "data/UserData.json";
+		string jsonString = JsonSerializer.Serialize(UserData);
+		File.WriteAllText(FileName, jsonString);
 	}
 
 	public override void _Process(double delta)
@@ -80,7 +91,6 @@ public partial class Main : Node
 	//rare chance for heart to appear instead of flower
 
 //add flags for how many disks can spawn at the same time(1-4, maybe more)
-//Every 2 minutes a shop appears? for things run only
 //two kind sof currency - one for during game, one for in hub to purchase upgrades
 //add a MaxDisksOnScreen var that can increase with difficulty
 //or potientally have an algorithm that can determine how many can be on screen deopending on the total comvined size of the disks that are available
@@ -96,8 +106,6 @@ public partial class Main : Node
 //add max size and max speed to disks, focus more on  adding more disks at a certain point
 
 //active itemd can be used with space, like clearing all disks on screen
-
-//do heartGrid size changes when numOfHearts % 3 = 1, add 1 heart height + buffer size to accomeadte
 
 //add several exports(maybe in a autoload) for debugging, like game speed, etc. Eventauly add a debug menu in-game maybe?
 

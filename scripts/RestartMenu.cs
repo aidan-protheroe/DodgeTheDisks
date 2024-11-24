@@ -19,7 +19,6 @@ public partial class RestartMenu : Control
 		Pointer.Play();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("up") || Input.IsActionJustPressed("down")) {

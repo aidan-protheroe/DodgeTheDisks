@@ -1,0 +1,45 @@
+Date : 2024-11-23 16:33:37
+Directory : c:\Users\amp09\Documents\DodgeTheDisks\scripts
+Total : 19 files,  1057 codes, 60 comments, 238 blanks, all 1355 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |         19 |      1,057 |         60 |        238 |      1,355 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                           |         19 |      1,057 |         60 |        238 |      1,355 |
+| . (Files)                                                                   |         15 |        891 |         60 |        195 |      1,146 |
+| Player                                                                      |          4 |        166 |          0 |         43 |        209 |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                    | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Arena.cs                     | C#       |        306 |         11 |         54 |        371 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\BloodSplatter.cs             | C#       |         14 |          0 |          2 |         16 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Disk.cs                      | C#       |         30 |          0 |         12 |         42 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\DiskData.cs                  | C#       |         10 |          0 |          2 |         12 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\DyingFlower.cs               | C#       |         25 |          1 |          9 |         35 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Flower.cs                    | C#       |         47 |          0 |         17 |         64 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Heart.cs                     | C#       |         23 |          0 |          7 |         30 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Item.cs                      | C#       |         94 |          0 |          6 |        100 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\LoadoutGenerator.cs          | C#       |         28 |          0 |          6 |         34 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Main.cs                      | C#       |         57 |         45 |         25 |        127 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\PauseMenu.cs                 | C#       |         38 |          1 |          6 |         45 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Player\FiniteStateMachine.cs | C#       |         40 |          0 |         10 |         50 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Player\IdleState.cs          | C#       |         30 |          0 |          7 |         37 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Player\MovingState.cs        | C#       |         69 |          0 |         18 |         87 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Player\Player.cs             | C#       |         27 |          0 |          8 |         35 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\RestartMenu.cs               | C#       |         36 |          1 |          7 |         44 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\Shop.cs                      | C#       |         98 |          0 |         24 |        122 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\ShopCard.cs                  | C#       |         70 |          1 |         12 |         83 |
+| c:\Users\amp09\Documents\DodgeTheDisks\scripts\State.cs                     | C#       |         15 |          0 |          6 |         21 |
+| Total                                                                       |          |      1,057 |         60 |        238 |      1,355 |
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+

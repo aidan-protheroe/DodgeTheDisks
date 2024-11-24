@@ -21,7 +21,6 @@ public partial class Player : CharacterBody2D
 	public float Stamina;
 	
 
-
 	public override void _Ready() {
 		Sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		Facing = "down";
@@ -31,12 +30,5 @@ public partial class Player : CharacterBody2D
 		
 		Health = MaxHealth;
 		Stamina = MaxStamina;
-	}
-	
-	public void Hit() { //not using rn
-		Health--;
-		//bloodsplatter -- actually prob has to be done by arena class
-		//Make invincible???
-		//add death check
 	}
 }
