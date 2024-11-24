@@ -99,6 +99,9 @@ public class UserData {
 	public int SpeedUpgrades { get; set; }
 }
 
+//HAVE FLOWERS AND DISKS FLOAT UPWARDS RANDOMLY IN THE MAIN MENU WHITE SPACE
+
+
 //add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money
 //disable shop cards? or just let the player buy as many as they want?
 
