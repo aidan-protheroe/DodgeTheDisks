@@ -8,10 +8,12 @@ public partial class Main : Node
 {
 	private Arena Arena;
 	
+	private PackedScene MainMenuScene;
 	private PackedScene ArenaScene;
 	private PackedScene PauseMenuScene;
 	private PackedScene RestartMenuScene;
 	
+	private MainMenu mm;
 	private PauseMenu? pm = null;
 	private RestartMenu rm;
 	
@@ -25,6 +27,7 @@ public partial class Main : Node
 	
 	public override void _Ready()
 	{
+		MainMenuScene = GD.Load<PackedScene>("res://scenes/MainMenu.tscn");
 		Arena = GetNode<Arena>("Arena"); 
 		ArenaScene = GD.Load<PackedScene>("res://scenes/Arena.tscn");
 		PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");

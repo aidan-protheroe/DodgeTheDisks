@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bci38lueh6gt2"]
+[gd_scene load_steps=6 format=3 uid="uid://bci38lueh6gt2"]
 
+[ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_0j6mu"]
 [ext_resource type="TileSet" uid="uid://du8sjshquo8nu" path="res://assets/Resources/ArenaTileSet.tres" id="1_4rswu"]
 [ext_resource type="FontFile" uid="uid://dx8ul73lvu2d0" path="res://assets/fonts/m5x7.ttf" id="2_dq08q"]
 [ext_resource type="SpriteFrames" uid="uid://bo7qgdn0ss57t" path="res://assets/Resources/Pointer.tres" id="3_rgdjl"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0j6mu")
 
 [node name="bg" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -120,4 +122,4 @@ modulate = Color(0, 0, 0, 1)
 position = Vector2(626, 538)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("3_rgdjl")
-frame_progress = 0.00513638
+frame_progress = 0.126116
