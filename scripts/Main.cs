@@ -20,7 +20,8 @@ public partial class Main : Node
 	private bool GameOver = false;
 	private bool HandledGameOver = false;
 	
-	private Dictionary<string, int> UserData;
+	public UserData UserData;
+	public string UserDataFilePath = "data/UserData.json";
 	
 	public override void _Ready()
 	{
@@ -30,11 +31,9 @@ public partial class Main : Node
 		RestartMenuScene = GD.Load<PackedScene>("res://scenes/RestartMenu.tscn");
 		cv = GetNode<CanvasLayer>("CanvasLayer");
 		
-		//test
-		UserData = new Dictionary<string, int> () {{"HighScore", 100},{"Points", 200}};
-		string FileName = "data/UserData.json";
-		string jsonString = JsonSerializer.Serialize(UserData);
-		File.WriteAllText(FileName, jsonString);
+		LoadUserData();
+
+
 	}
 
 	public override void _Process(double delta)
@@ -60,8 +59,13 @@ public partial class Main : Node
 		} else {
 			if (!HandledGameOver) {
 				HandledGameOver = true;
+				var Score = Arena.TotalTime;
+				if (Score > UserData.HighScore) {
+					UserData.HighScore = Score;
+					SaveUserData();
+				}
 				Arena.QueueFree();
-				rm = (RestartMenu) RestartMenuScene.Instantiate();
+				rm = (RestartMenu) RestartMenuScene.Instantiate(); //show score on restart screen (and if it's a new highscore highlight that)
 				cv.AddChild(rm);
 			} else {
 				if (rm.NewGame) {
@@ -75,6 +79,21 @@ public partial class Main : Node
 		}
 
 	}
+	
+	private void LoadUserData() {
+		string jsonString = File.ReadAllText(UserDataFilePath);
+		UserData = JsonSerializer.Deserialize<UserData>(jsonString)!;
+	}
+	
+	private void SaveUserData() {
+		string jsonString = JsonSerializer.Serialize(UserData);
+		File.WriteAllText(UserDataFilePath, jsonString);
+	}
+}
+
+public class UserData {
+	public float HighScore { get; set; }
+	public int Points { get; set; }
 }
 
 //add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money
