@@ -23,7 +23,6 @@ public partial class ShopCard : Control
 		ItemSprite = GetNode<Sprite2D>("ItemSprite");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (!FinishedPurchaseAnimation) {
@@ -62,7 +61,6 @@ public partial class ShopCard : Control
 					FinishedNoPurchaseAnimation = true;
 					Steps = 0;
 					BackToCenter = false;
-					
 				} else {
 					HDirection = "right";
 					Steps = 0;

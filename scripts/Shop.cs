@@ -67,7 +67,6 @@ public partial class Shop : Control
 			PointerPosition = 0;
 		}
 		
-		
 		var posX = 0f;
 		var posY = 0f;
 		if (PointerPosition != 3) {
@@ -82,18 +81,25 @@ public partial class Shop : Control
 		if (Input.IsActionJustPressed("enter")) {
 			if (PointerPosition != 3) { //add check to make sure player health/stamina isn't full before purchasing somehow
 				if (Arena.Player.Flowers >= ShopCards[PointerPosition].Item.Price && ShopCards[PointerPosition].FinishedPurchaseAnimation) {
-					Arena.Player.Flowers -= ShopCards[PointerPosition].Item.Price;
-					Arena.FlowerLabel.Text = "x" + Arena.Player.Flowers;
-					
-					ShopCards[PointerPosition].FinishedPurchaseAnimation = false; //test
-					
+
 					var purchasedItem = ShopCards[PointerPosition].Item;
+					
 					switch (purchasedItem.Effect) {
 						case "Heal":
-							Arena.HealPlayer((float)purchasedItem.Amount);
+							if (Arena.Player.Health != Arena.Player.MaxHealth) {
+								Arena.HealPlayer((float)purchasedItem.Amount);
+							} else {
+								ShopCards[PointerPosition].FinishedNoPurchaseAnimation = false;
+								return;
+							}
 							break;
 						case "Stamina":
-							Arena.RefillPlayerStamina((float)purchasedItem.Amount);
+							if (Arena.Player.Stamina != Arena.Player.MaxStamina) {
+								Arena.RefillPlayerStamina((float)purchasedItem.Amount);
+							} else {
+								ShopCards[PointerPosition].FinishedNoPurchaseAnimation = false;
+								return;
+							}
 							break;
 						case "FlowerSpawnRate":
 							Arena.IncreaseFlowerSpawnRate((float)purchasedItem.Amount);
@@ -108,6 +114,10 @@ public partial class Shop : Control
 							Arena.PlusPlayerSpeed((float)purchasedItem.Amount);
 							break;
 					}
+					
+					Arena.Player.Flowers -= ShopCards[PointerPosition].Item.Price;
+					Arena.FlowerLabel.Text = "x" + Arena.Player.Flowers;
+					ShopCards[PointerPosition].FinishedPurchaseAnimation = false; //test
 
 				} else if (Arena.Player.Flowers < ShopCards[PointerPosition].Item.Price) {
 					ShopCards[PointerPosition].FinishedNoPurchaseAnimation = false;
