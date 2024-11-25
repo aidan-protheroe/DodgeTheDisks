@@ -22,6 +22,8 @@ public partial class Main : Node
 	private bool PlayingGame = false;
 	private bool HandledGameOver = false;
 	
+	private string State = "MainMenu";
+	
 	public UserData UserData;
 	public string UserDataFilePath = "data/UserData.json";
 	
@@ -34,91 +36,113 @@ public partial class Main : Node
 		cv = GetNode<CanvasLayer>("CanvasLayer");
 		
 		LoadUserData();
+		OpenMainMenu();
 	}
 
 	public override void _Process(double delta)
 	{
-		if (OnMainMenu) {
-			if (mm == null) {
-				mm = (MainMenu) MainMenuScene.Instantiate();
-				AddChild(mm);
-				mm.HighScoreLabel.Text = "HighScore: " + UserData.HighScore.ToString("0.0");
-				mm.PointsLabel.Text = "Points: " + UserData.Points.ToString();
-			} else {
-				if (mm.StartGame) {
-					OnMainMenu = false;
-					mm.QueueFree();
-					mm = null;
-					PlayingGame = true;
-				}
+		if (State == "MainMenu") {
+			MainMenuLoop();
+		} else if (State == "Arena") {
+			ArenaLoop();
+		} else if (State == "GameOver") {
+			OnGameOver();
+		} else if (State == "RestartMenu") {
+			RestartMenuLoop();
+		}
+	}
+	
+	private void OpenMainMenu() {
+		if (Arena != null) {
+			Arena.QueueFree();
+			Arena = null;
+		}
+		State = "MainMenu";
+		mm = (MainMenu) MainMenuScene.Instantiate();
+		AddChild(mm);
+		mm.HighScoreLabel.Text = "HighScore: " + UserData.HighScore.ToString("0.0");
+		mm.PointsLabel.Text = "Points: " + UserData.Points.ToString();
+	}
+	
+	private void MainMenuLoop() {
+		if (mm.StartGame) { //use options liek the other 2
+			mm.QueueFree();
+			mm = null;
+			OnMainMenu = false;
+			OpenArena();
+		}
+	}
+	
+	private void OpenArena() {
+		Arena = (Arena)ArenaScene.Instantiate();
+		AddChild(Arena);
+		State = "Arena";
+	}
+	
+	private void ArenaLoop() {
+		if (Input.IsActionJustPressed("escape")) { //pause game
+			if (pm == null) {
+				OpenPauseMenu();
 			}
-		} else if (PlayingGame) {
-			if (Arena == null) {
-				Arena = (Arena)ArenaScene.Instantiate();
-				AddChild(Arena);
-				HandledGameOver = false;
-			} else {
-				if (Input.IsActionJustPressed("escape")) { //pause game
-					if (pm == null) {
-						pm = (PauseMenu)PauseMenuScene.Instantiate();
-						cv.AddChild(pm);
-						GetTree().Paused = true;
-					}
-				}
-				
-				if (pm != null) { //unpause game -- move outside of this block?
-					if (!pm.Active) {
-						pm.QueueFree();
-						pm = null;
-						GetTree().Paused = false;
-					} else if (pm.GoToMainMenu) {
-						pm.QueueFree();
-						pm = null;
-						GetTree().Paused = false;
-						Arena.QueueFree();
-						Arena = null;
-						OnMainMenu = true;
-						return;
-					}
-				}
-				
-				PlayingGame = !Arena.GameOver;
-			}
-		} else if (!PlayingGame) {
-			if (!HandledGameOver) {
-				HandledGameOver = true;
-				var Score = Arena.TotalTime;
-				if (Score > UserData.HighScore) {
-					UserData.HighScore = Score;
-				}
-				UserData.Points += (int)Score;
-				SaveUserData();
-				Arena.QueueFree();
-				Arena = null;
-				rm = (RestartMenu) RestartMenuScene.Instantiate(); //show score on restart screen (and if it's a new highscore highlight that)
-				cv.AddChild(rm);
-				
-			} else if (HandledGameOver) {
-				if (rm.SelectedOption) { //move outside this block and make nullable like the others?
-					var Option = rm.Option;
-					rm.QueueFree();
-					if (Option == "NewGame") {
-						Arena = (Arena)ArenaScene.Instantiate();
-						AddChild(Arena);
-						PlayingGame = true;
-						HandledGameOver = false;
-					} else if (Option == "MainMenu") {
-						OnMainMenu = true;
-						HandledGameOver = false;
-					}
-				}
+		}
+		
+		if (pm != null) { //unpause game -- move outside of this block?
+			PauseMenuLoop();
+		} else {
+			if (Arena.GameOver) {
+				State = "GameOver";
 			}
 		}
 	}
 	
-	private void ReturnToMainMenu() {
-		//reset everything back to how it's initalized
+	private void OpenPauseMenu() {
+		pm = (PauseMenu)PauseMenuScene.Instantiate();
+		cv.AddChild(pm);
+		GetTree().Paused = true;
 	}
+	
+	private void PauseMenuLoop() {
+		if (pm.SelectedOption) {
+			var option = pm.Option;
+			pm.QueueFree();
+			pm = null;
+			GetTree().Paused = false;
+			if (option == "MainMenu") {
+				OpenMainMenu();
+			}
+		}
+	}
+	
+	private void OnGameOver() {
+		var Score = Arena.TotalTime;
+		if (Score > UserData.HighScore) {
+			UserData.HighScore = Score;
+		}
+		UserData.Points += (int)Score;
+		SaveUserData();
+		Arena.QueueFree();
+		Arena = null;
+		OpenRestartMenu();
+	}
+	
+	private void OpenRestartMenu() {
+		rm = (RestartMenu) RestartMenuScene.Instantiate(); //show score on restart screen (and if it's a new highscore highlight that)
+		cv.AddChild(rm);
+		State = "RestartMenu";
+	}
+	
+	private void RestartMenuLoop() {
+		if (rm.SelectedOption) { 
+			var Option = rm.Option;
+			rm.QueueFree();
+			if (Option == "NewGame") {
+				OpenArena();
+			} else if (Option == "MainMenu") {
+				OpenMainMenu();
+			}
+		}
+	}
+	
 	
 	private void LoadUserData() {
 		string jsonString = File.ReadAllText(UserDataFilePath);
@@ -138,6 +162,8 @@ public class UserData {
 	public int StaminaUpgrades { get; set; }
 	public int SpeedUpgrades { get; set; }
 }
+
+//if player selects restart make sure game data is still saved
 
 //HAVE FLOWERS AND DISKS FLOAT UPWARDS RANDOMLY IN THE MAIN MENU WHITE SPACE
 
