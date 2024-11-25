@@ -34,8 +34,6 @@ public partial class Player : CharacterBody2D
 		
 		Health = MaxHealth;
 		Stamina = MaxStamina;
-		
-		//HurtAnimation = true;
 	}
 	
 	public override void _Process(double delta) {

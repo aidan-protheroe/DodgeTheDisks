@@ -99,7 +99,7 @@ public partial class Main : Node
 				cv.AddChild(rm);
 				
 			} else if (HandledGameOver) {
-				if (rm.SelectedOption) {
+				if (rm.SelectedOption) { //move outside this block and make nullable like the others?
 					var Option = rm.Option;
 					rm.QueueFree();
 					if (Option == "NewGame") {
@@ -117,7 +117,7 @@ public partial class Main : Node
 	}
 	
 	private void ReturnToMainMenu() {
-		
+		//reset everything back to how it's initalized
 	}
 	
 	private void LoadUserData() {
@@ -141,8 +141,6 @@ public class UserData {
 
 //HAVE FLOWERS AND DISKS FLOAT UPWARDS RANDOMLY IN THE MAIN MENU WHITE SPACE
 
-
-//add some animtaions to the shop so the player can tell when an upgrade is purchased vs when they don't have enough money
 //disable shop cards? or just let the player buy as many as they want?
 
 //after little playtest:
