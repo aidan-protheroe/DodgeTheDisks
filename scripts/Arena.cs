@@ -359,7 +359,6 @@ public partial class Arena : Node2D
 	
 	private void OnGameOverTimerTimeout()
 	{
-		//set highscore data
 		GameOver = true;
 	}
 }

@@ -22,7 +22,6 @@ public partial class Flower : Area2D
 		
 		Sprite = GetNode<Sprite2D>("Sprite2D");
 		Scale = new Vector2(0.00f, 0.00f);
-		
 	}
 
 	public override void _Process(double delta)

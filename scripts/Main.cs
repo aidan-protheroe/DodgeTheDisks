@@ -18,10 +18,6 @@ public partial class Main : Node
 	
 	private CanvasLayer cv;
 	
-	private bool OnMainMenu = true;
-	private bool PlayingGame = false;
-	private bool HandledGameOver = false;
-	
 	private string State = "MainMenu";
 	
 	public UserData UserData;
@@ -68,7 +64,6 @@ public partial class Main : Node
 		if (mm.StartGame) { //use options liek the other 2
 			mm.QueueFree();
 			mm = null;
-			OnMainMenu = false;
 			OpenArena();
 		}
 	}
@@ -84,9 +79,7 @@ public partial class Main : Node
 			if (pm == null) {
 				OpenPauseMenu();
 			}
-		}
-		
-		if (pm != null) { //unpause game -- move outside of this block?
+		} else if (pm != null) { // move outside of this block?
 			PauseMenuLoop();
 		} else {
 			if (Arena.GameOver) {
@@ -142,7 +135,6 @@ public partial class Main : Node
 			}
 		}
 	}
-	
 	
 	private void LoadUserData() {
 		string jsonString = File.ReadAllText(UserDataFilePath);
